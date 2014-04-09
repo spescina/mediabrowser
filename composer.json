@@ -1,0 +1,20 @@
+{
+    "name": "psimone/mediabrowser",
+    "description": "",
+    "authors": [
+        {
+            "name": "Simone Pescina",
+            "email": "s.pescina@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Psimone\\Mediabrowser": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
