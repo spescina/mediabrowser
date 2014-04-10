@@ -47,7 +47,7 @@ class MediabrowserServiceProvider extends ServiceProvider {
         public function provides()
         {
                 return array(
-                    'mediabrowser.medialibrary',
+                    'mediabrowser',
                 );
         }
 
@@ -58,7 +58,7 @@ class MediabrowserServiceProvider extends ServiceProvider {
 
         private function registerServices()
         {
-                $this->app['mediabrowser.medialibrary'] = $this->app->share(function($app) {
+                $this->app['mediabrowser'] = $this->app->share(function($app) {
                         return new Medialibrary();
                 });
         }

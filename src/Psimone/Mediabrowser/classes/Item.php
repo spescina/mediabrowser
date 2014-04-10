@@ -1,7 +1,6 @@
 <?php namespace Psimone\Mediabrowser\Classes;
 
 use Psimone\Mediabrowser\Facades\MediaLibrary;
-use Psimone\PlatformCore\Facades\Timthumb;
 
 class Item {
 
@@ -111,7 +110,7 @@ class Item {
          *
          * @return string
          */
-        public function icon($w = 120, $h = 120)
+        public function icon()
         {
                 $preview = array('png', 'jpg', 'gif', 'bmp');
 
@@ -142,7 +141,7 @@ class Item {
                         }
                 }
 
-                return Timthumb::link($url, $w, $h);
+                return $url;
         }
 
         /**

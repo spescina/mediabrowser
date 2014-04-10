@@ -11,7 +11,7 @@ class MediaLibrary extends Facade {
          */
         protected static function getFacadeAccessor()
         {
-                return 'mediabrowser.medialibrary';
+                return 'mediabrowser';
         }
 
 }
