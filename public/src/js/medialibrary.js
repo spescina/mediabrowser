@@ -18,7 +18,7 @@
                                         folderDelete: '/medialibrary/folder_delete'
                                 },
                                 basepath: ZZ.config.medialibrary.config.basepath,
-                                templatePath: 'packages/psimone/mediabrowser/tpl',
+                                templatePath: 'packages/spescina/mediabrowser/tpl',
                                 messageDuration: 5000,
                                 maxFileSize: 5 * 1024 * 1024,
                                 selectors: {
