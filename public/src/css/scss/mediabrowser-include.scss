@@ -1,0 +1,16 @@
+$imgPath: '../img/vendor/';
+
+#fancybox-loading,
+.fancybox-close,
+.fancybox-prev span,
+.fancybox-next span {
+        background-image: url('#{$imgPath}fancybox_sprite.png'); }
+
+#fancybox-loading div {
+        background-image: url('#{$imgPath}fancybox_loading.gif'); }
+
+.fancybox-nav {
+        background-image: url('#{$imgPath}blank.gif'); }
+
+.fancybox-overlay {
+        background-image: url('#{$imgPath}fancybox_overlay.png'); }

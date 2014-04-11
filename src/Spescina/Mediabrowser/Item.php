@@ -1,6 +1,6 @@
-<?php namespace Psimone\Mediabrowser\Classes;
+<?php namespace Spescina\Mediabrowser;
 
-use Psimone\Mediabrowser\Facades\MediaLibrary;
+use Spescina\Mediabrowser\Facades\MediaBrowser;
 
 class Item {
 
@@ -58,7 +58,7 @@ class Item {
 
                 $this->name = $back ? '..' : $this->extractName($fullPath);
 
-                $this->extension = MediaLibrary::extension($fullPath);
+                $this->extension = MediaBrowser::extension($fullPath);
 
                 $this->folder = $folder;
 
@@ -88,7 +88,7 @@ class Item {
          */
         private function extractPublicPath($path)
         {
-                $config = MediaLibrary::config();
+                $config = MediaBrowser::config();
 
                 $rootPath = public_path($config['basepath']);
 
@@ -114,7 +114,7 @@ class Item {
         {
                 $preview = array('png', 'jpg', 'gif', 'bmp');
 
-                $publicBaseUrl = 'packages/psimone/mediabrowser/src/img/icons/';
+                $publicBaseUrl = 'packages/spescina/mediabrowser/src/img/icons/';
 
                 if ($this->folder)
                 {

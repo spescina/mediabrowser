@@ -6,17 +6,17 @@
         <head>
                 <meta charset="utf-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <title>Pangea</title>
+                <title>Media Manager</title>
                 
                 <script type="text/javascript">
                         ZZ = {
                                 locale: '{{ Config::get('app.locale') }}',
                                 config: {
-                                        medialibrary : {
-                                                config: {{ MediaLibrary::configToJSON() }},
+                                        mediabrowser : {
+                                                config: {{ MediaBrowser::configToJSON() }},
                                                 field: '{{ $field }}',
                                                 value: '{{ $value }}',
-                                                allowed: {{ MediaLibrary::jsonAllowedExtensions($field) }}
+                                                allowed: {{ MediaBrowser::jsonAllowedExtensions($field) }}
                                         }
                                 }
                         };
@@ -33,7 +33,7 @@
                 <![endif]-->
 
                 <div class="container">
-                        <div class="row" id="medialibrary"></div>
+                        <div class="row" id="mediabrowser"></div>
                 </div>
                 <div id="bottom-bar">
                         <div class="container">
@@ -43,17 +43,17 @@
                                 <p class="pull-left">
                                         <span class="btn btn-primary btn-sm fileinput-button">
                                                 <i class="glyphicon glyphicon-plus"></i>
-                                                <span>{{ MediaLibrary::localize('upload') }}</span>
+                                                <span>{{ MediaBrowser::localize('upload') }}</span>
 
                                                 <input id="fileupload" type="file" name="files[]" multiple>
                                         </span>
-                                        <button id="btn-create-folder" type="button" class="btn btn-default btn-sm">{{ MediaLibrary::localize('create_folder') }}</button>
-                                        <input id="input-folder" class="hidden form-control input-sm" type="text" name="folder" placeholder="{{ MediaLibrary::localize('folder') }}" />
-                                        <button id="btn-confirm" type="button" class="hidden btn btn-success btn-sm">{{ MediaLibrary::localize('confirm') }}</button>
+                                        <button id="btn-create-folder" type="button" class="btn btn-default btn-sm">{{ MediaBrowser::localize('create_folder') }}</button>
+                                        <input id="input-folder" class="hidden form-control input-sm" type="text" name="folder" placeholder="{{ MediaBrowser::localize('folder') }}" />
+                                        <button id="btn-confirm" type="button" class="hidden btn btn-success btn-sm">{{ MediaBrowser::localize('confirm') }}</button>
                                 </p>
                                 <p class="pull-right">
-                                        <button id="btn-select" type="button" class="hidden btn btn-primary btn-sm">{{ MediaLibrary::localize('select') }}</button>
-                                        <button id="btn-cancel" type="button" class="btn btn-default btn-sm">{{ MediaLibrary::localize('cancel') }}</button>
+                                        <button id="btn-select" type="button" class="hidden btn btn-primary btn-sm">{{ MediaBrowser::localize('select') }}</button>
+                                        <button id="btn-cancel" type="button" class="btn btn-default btn-sm">{{ MediaBrowser::localize('cancel') }}</button>
                                 </p>
                         </div>
                 </div>

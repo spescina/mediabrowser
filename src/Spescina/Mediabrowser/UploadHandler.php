@@ -1,4 +1,4 @@
-<?php namespace Psimone\Mediabrowser\Classes;
+<?php namespace Spescina\Mediabrowser;
 
 /*
  * jQuery File Upload Plugin PHP Class 7.1.4

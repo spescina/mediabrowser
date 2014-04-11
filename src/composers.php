@@ -6,4 +6,4 @@
   |
  */
 
-View::composer('mediabrowser::medialibrary', 'Psimone\\Mediabrowser\\Composers\\MedialibraryComposer');
+View::composer('mediabrowser::mediabrowser', 'Spescina\\Mediabrowser\\Composers\\MediabrowserComposer');

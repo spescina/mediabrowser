@@ -1,8 +1,8 @@
-<?php namespace Psimone\Mediabrowser\Facades;
+<?php namespace Spescina\Mediabrowser\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class MediaLibrary extends Facade {
+class MediaBrowser extends Facade {
 
         /**
          * Get the registered name of the component.
