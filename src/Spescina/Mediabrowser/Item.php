@@ -1,5 +1,6 @@
 <?php namespace Spescina\Mediabrowser;
 
+use Illuminate\Support\Facades\Config;
 use Spescina\Mediabrowser\Facades\MediaBrowser;
 
 class Item {
@@ -64,7 +65,7 @@ class Item {
 
                 $this->back = $back;
 
-                $this->icon = $this->icon();
+                $this->thumb = $this->thumbUrl();
         }
 
         /**
@@ -110,7 +111,7 @@ class Item {
          *
          * @return string
          */
-        public function icon()
+        private function thumb()
         {
                 $preview = array('png', 'jpg', 'gif', 'bmp');
 
@@ -143,6 +144,41 @@ class Item {
 
                 return $url;
         }
+        
+        /**
+         * Return the item url
+         * 
+         * @param int $width
+         * @param int $height
+         * @return string
+         */
+        public function thumbUrl($width = null, $height = null)
+        {
+                $resourceUrl = $this->thumb();
+                
+                $url = ($this->config('imgproxy')) ? $this->imgproxyResizerUrl($resourceUrl, $width, $height) : $resourceUrl;
+                
+                return asset($url);
+        }
+        
+        /**
+         * Return the prefixed url including the resizing prefix of the imgproxy package
+         * 
+         * @param string $resourceUrl
+         * @param int $width
+         * @param int $height
+         * @return string
+         */
+        private function imgproxyResizerUrl($resourceUrl, $width, $height)
+        {
+                $width = is_null($width) ? $this->config('thumbs.width') : $width;
+                
+                $height = is_null($height) ? $this->config('thumbs.height') : $height;
+                
+                $resizePrefix = "packages/spescina/imgproxy/$width/$height/2/70/";
+                
+                return $resizePrefix . $resourceUrl;
+        }
 
         /**
          * Convert the path in array splitted by the forward slash separator
@@ -153,6 +189,17 @@ class Item {
         static function pathToArray($path)
         {
                 return explode('/', $path);
+        }
+        
+        /**
+         * Get a config value from the config object
+         * 
+         * @param string $key
+         * @return string
+         */
+        private function config($key)
+        {
+                return Config::get('mediabrowser::mediabrowser.' . $key);
         }
 
 }
