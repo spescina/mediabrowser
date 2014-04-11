@@ -7,7 +7,7 @@ Laravel 4 packages that provide a basic user interface for browsing a server fol
 Add in `composer.json`  
 ```
 "require": {
-    "spescina/mediabrowser": "2.0.*"
+    "spescina/mediabrowser": "2.x"
 }
 ```
 
