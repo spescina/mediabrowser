@@ -14,31 +14,31 @@ Route::group(array('prefix' => 'medialibrary'), function(){
         
         Route::get('{field}/{value?}', array(
                 'as' => 'medialibrary',
-                'uses' => 'Psimone\\Mediabrowser\\Controllers\\MedialibraryController@index'
+                'uses' => 'Spescina\\Mediabrowser\\Controllers\\MedialibraryController@index'
         ))->where('field', '[A-Za-z0-9-_]+')->where('value', '(.*)');
 
         Route::post('file_delete', array(
                 'as' => 'medialibrary.fileDelete',
-                'uses' => 'Psimone\\Mediabrowser\\Controllers\\MedialibraryController@fileDelete'
+                'uses' => 'Spescina\\Mediabrowser\\Controllers\\MedialibraryController@fileDelete'
         ));
 
         Route::post('folder_create', array(
                 'as' => 'medialibrary.folderCreate',
-                'uses' => 'Psimone\\Mediabrowser\\Controllers\\MedialibraryController@folderCreate'
+                'uses' => 'Spescina\\Mediabrowser\\Controllers\\MedialibraryController@folderCreate'
         ));
 
         Route::post('folder_delete', array(
                 'as' => 'medialibrary.folderDelete',
-                'uses' => 'Psimone\\Mediabrowser\\Controllers\\MedialibraryController@folderDelete'
+                'uses' => 'Spescina\\Mediabrowser\\Controllers\\MedialibraryController@folderDelete'
         ));
 
         Route::post('browse', array(
                 'as' => 'medialibrary.browse',
-                'uses' => 'Psimone\\Mediabrowser\\Controllers\\MedialibraryController@browse'
+                'uses' => 'Spescina\\Mediabrowser\\Controllers\\MedialibraryController@browse'
         ));
 
         Route::post('upload', array(
                 'as' => 'medialibrary.upload',
-                'uses' => 'Psimone\\Mediabrowser\\Controllers\\MedialibraryController@filesUpload'
+                'uses' => 'Spescina\\Mediabrowser\\Controllers\\MedialibraryController@filesUpload'
         ));
 });

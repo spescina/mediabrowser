@@ -1,6 +1,6 @@
-<?php namespace Psimone\Mediabrowser\Classes;
+<?php namespace Spescina\Mediabrowser;
 
-use Psimone\Mediabrowser\Facades\MediaLibrary;
+use Spescina\Mediabrowser\Facades\MediaLibrary;
 
 class Item {
 
@@ -114,7 +114,7 @@ class Item {
         {
                 $preview = array('png', 'jpg', 'gif', 'bmp');
 
-                $publicBaseUrl = 'packages/psimone/mediabrowser/src/img/icons/';
+                $publicBaseUrl = 'packages/spescina/mediabrowser/src/img/icons/';
 
                 if ($this->folder)
                 {

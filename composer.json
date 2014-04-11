@@ -1,19 +1,27 @@
 {
-        "name": "psimone/mediabrowser",
-        "description": "",
+        "name": "spescina/mediabrowser",
+        "description": "Laravel packages that provide a basic user interface for browsing a server folder, for uploading files and for picking a file",
+        "keywords": ["laravel", "media", "images", "file manager", "file browser", "upload"],
         "authors": [
                 {
                         "name": "Simone Pescina",
                         "email": "s.pescina@gmail.com"
                 }
         ],
+        "license": "MIT",
+        "support": {
+                "issues": "https://github.com/spescina/mediabrowser/issues"
+        },
         "require": {
                 "php": ">=5.3.0",
-                "illuminate/support": "4.1.*"
+                "illuminate/support": "4.x"
+        },
+        "require-dev": {
+                "mockery/mockery": "0.9.*"
         },
         "autoload": {
                 "psr-0": {
-                        "Psimone\\Mediabrowser": "src/"
+                        "Spescina": "src/"
                 }
         },
         "minimum-stability": "stable"

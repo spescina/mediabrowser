@@ -1,12 +1,12 @@
-<?php namespace Psimone\Mediabrowser\Controllers;
+<?php namespace Spescina\Mediabrowser\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
-use Psimone\Mediabrowser\Classes\UploadHandler;
-use Psimone\Mediabrowser\Facades\MediaLibrary;
+use Spescina\Mediabrowser\UploadHandler;
+use Spescina\Mediabrowser\Facades\MediaLibrary;
 
 class MedialibraryController extends Controller {
 

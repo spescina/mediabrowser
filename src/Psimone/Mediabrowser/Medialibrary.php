@@ -1,10 +1,10 @@
-<?php namespace Psimone\Mediabrowser\Classes;
+<?php namespace Spescina\Mediabrowser;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
-use Psimone\Mediabrowser\Classes\Item;
+use Spescina\Mediabrowser\Item;
 
 class Medialibrary {
 

@@ -1,8 +1,8 @@
-<?php namespace Psimone\Mediabrowser;
+<?php namespace Spescina\Mediabrowser;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Psimone\Mediabrowser\Classes\Medialibrary;
+use Spescina\Mediabrowser\Medialibrary;
 
 class MediabrowserServiceProvider extends ServiceProvider {
 
@@ -20,7 +20,7 @@ class MediabrowserServiceProvider extends ServiceProvider {
          */
         public function boot()
         {
-                $this->package('psimone/mediabrowser');
+                $this->package('spescina/mediabrowser');
 
                 include __DIR__ . '/../../routes.php';
 
@@ -53,7 +53,7 @@ class MediabrowserServiceProvider extends ServiceProvider {
 
         private function registerAlias()
         {
-                AliasLoader::getInstance()->alias('MediaLibrary', 'Psimone\Mediabrowser\Facades\MediaLibrary');
+                AliasLoader::getInstance()->alias('MediaLibrary', 'Spescina\Mediabrowser\Facades\MediaLibrary');
         }
 
         private function registerServices()
