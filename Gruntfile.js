@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                             'bower_components/jquery/dist/jquery.js',
                             'bower_components/bootstrap/dist/js/bootstrap.js',
                             'bower_components/handlebars/handlebars.js',
+                            'bower_components/fancybox/source/jquery.fancybox.js',
                             'bower_components/jquery-file-upload/js/jquery.fileupload.js',
                             'bower_components/jquery-file-upload/js/jquery.fileupload-process.js',
                             'bower_components/jquery-file-upload/js/jquery.fileupload-validate.js',
@@ -36,6 +37,7 @@ module.exports = function(grunt) {
                         src: [
                             'bower_components/bootstrap/dist/css/bootstrap.css',
                             'bower_components/font-awesome/css/font-awesome.css',
+                            'bower_components/fancybox/source/jquery.fancybox.css',
                             'bower_components/jquery-file-upload/css/jquery.fileupload.css',
                         ],
                         dest: 'public/src/css/vendor',
@@ -52,6 +54,12 @@ module.exports = function(grunt) {
                         cwd: 'bower_components/font-awesome',
                         src: ['fonts/*'],
                         dest: 'public/src/css'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'bower_components/fancybox/source',
+                        src: ['*.gif', '*.png'],
+                        dest: 'public/src/img/vendor'
                     }
                 ]
             }
