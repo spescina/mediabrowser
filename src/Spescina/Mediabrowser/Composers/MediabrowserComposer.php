@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\App;
 use Teepluss\Asset\Facades\Asset;
 
-class MedialibraryComposer {
+class MediabrowserComposer {
 
         public function compose($view)
         {
@@ -24,7 +24,7 @@ class MedialibraryComposer {
                                 Asset::container('header')->add('bootstrap-css', 'packages/spescina/mediabrowser/src/css/vendor/bootstrap.css');
                                 Asset::container('header')->add('fontawesome-css', 'packages/spescina/mediabrowser/src/css/vendor/font-awesome.css');
                                 Asset::container('header')->add('uploader-css', 'packages/spescina/mediabrowser/src/css/vendor/jquery.fileupload.css');
-                                Asset::container('header')->add('medialibrary-css', 'packages/spescina/mediabrowser/src/css/medialibrary.css');
+                                Asset::container('header')->add('mediabrowser-css', 'packages/spescina/mediabrowser/src/css/mediabrowser.css');
 
                                 Asset::container('footer')->add('jquery', 'packages/spescina/mediabrowser/src/js/vendor/jquery.js');
                                 Asset::container('footer')->add('bootstrap-js', 'packages/spescina/mediabrowser/src/js/vendor/bootstrap.js', array('jquery'));
@@ -38,7 +38,7 @@ class MedialibraryComposer {
                                 Asset::container('footer')->add('uploader-js', 'packages/spescina/mediabrowser/src/js/vendor/jquery.fileupload.js', array('jquery', 'jquery-ui-widget', 'uploader-transport-js'));
 
                                 Asset::container('footer')->add('ajax-js', 'packages/spescina/mediabrowser/src/js/ajax.js', array('jquery'));
-                                Asset::container('footer')->add('medialibrary-js', 'packages/spescina/mediabrowser/src/js/medialibrary.js', array('jquery', 'ajax-js', 'bootstrap-js', 'handlebars-js'));
+                                Asset::container('footer')->add('mediabrowser-js', 'packages/spescina/mediabrowser/src/js/mediabrowser.js', array('jquery', 'ajax-js', 'bootstrap-js', 'handlebars-js'));
                                 break;
                 }
         }

@@ -1,6 +1,6 @@
 <?php namespace Spescina\Mediabrowser;
 
-use Spescina\Mediabrowser\Facades\MediaLibrary;
+use Spescina\Mediabrowser\Facades\MediaBrowser;
 
 class Item {
 
@@ -58,7 +58,7 @@ class Item {
 
                 $this->name = $back ? '..' : $this->extractName($fullPath);
 
-                $this->extension = MediaLibrary::extension($fullPath);
+                $this->extension = MediaBrowser::extension($fullPath);
 
                 $this->folder = $folder;
 
@@ -88,7 +88,7 @@ class Item {
          */
         private function extractPublicPath($path)
         {
-                $config = MediaLibrary::config();
+                $config = MediaBrowser::config();
 
                 $rootPath = public_path($config['basepath']);
 

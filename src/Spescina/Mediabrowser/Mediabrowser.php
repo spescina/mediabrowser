@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
 use Spescina\Mediabrowser\Item;
 
-class Medialibrary {
+class Mediabrowser {
 
         private $items = array();
         private $config;
@@ -21,7 +21,7 @@ class Medialibrary {
 
         public function __construct()
         {
-                $this->config = Config::get('mediabrowser::medialibrary');
+                $this->config = Config::get('mediabrowser::mediabrowser');
         }
 
         /**
@@ -257,7 +257,7 @@ class Medialibrary {
          */
         public function localize($section)
         {
-                return Lang::get('mediabrowser::medialibrary.' . $section);
+                return Lang::get('mediabrowser::mediabrowser.' . $section);
         }
 
         /**
@@ -326,9 +326,9 @@ class Medialibrary {
         {
                 $fields = Session::get('formFields');
 
-                $medialibraryType = $fields[$field]['allowed'];
+                $mediabrowserType = $fields[$field]['allowed'];
 
-                if ($medialibraryType === self::ALL_TYPE)
+                if ($mediabrowserType === self::ALL_TYPE)
                 {
 
                         $extensions = array();
@@ -341,7 +341,7 @@ class Medialibrary {
                         return $extensions;
                 }
 
-                return $this->config['types'][$medialibraryType];
+                return $this->config['types'][$mediabrowserType];
         }
 
         /**

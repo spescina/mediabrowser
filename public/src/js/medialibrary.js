@@ -4,20 +4,20 @@
 
         $(function() {
 
-                ZZ.medialibrary = (function() {
+                ZZ.mediabrowser = (function() {
 
                         var currentPath;
 
                         var config = {
-                                field: ZZ.config.medialibrary.field,
+                                field: ZZ.config.mediabrowser.field,
                                 services: {
-                                        browse: '/medialibrary/browse',
-                                        fileDelete: '/medialibrary/file_delete',
-                                        filesUpload: '/medialibrary/upload',
-                                        folderCreate: '/medialibrary/folder_create',
-                                        folderDelete: '/medialibrary/folder_delete'
+                                        browse: '/mediabrowser/browse',
+                                        fileDelete: '/mediabrowser/file_delete',
+                                        filesUpload: '/mediabrowser/upload',
+                                        folderCreate: '/mediabrowser/folder_create',
+                                        folderDelete: '/mediabrowser/folder_delete'
                                 },
-                                basepath: ZZ.config.medialibrary.config.basepath,
+                                basepath: ZZ.config.mediabrowser.config.basepath,
                                 templatePath: 'packages/spescina/mediabrowser/tpl',
                                 messageDuration: 5000,
                                 maxFileSize: 5 * 1024 * 1024,
@@ -28,7 +28,7 @@
                                         folderAttribute: 'folder',
                                         messageId: 'message',
                                         pathAttribute: 'path',
-                                        container: '#medialibrary',
+                                        container: '#mediabrowser',
                                         bottomBar: '#bottom-bar',
                                         fileUpload: '#fileupload',
                                         item: '.resource',
@@ -108,7 +108,7 @@
                                 UI.block();
 
                                 $.post(config.services.browse, {
-                                        field: ZZ.config.medialibrary.field,
+                                        field: ZZ.config.mediabrowser.field,
                                         path: target
                                 }).done(function(data)
                                 {
@@ -348,7 +348,7 @@
                         };
 
                         /**
-                         * Close medialibrary panel
+                         * Close mediabrowser panel
                          */
                         var close = function()
                         {
@@ -364,7 +364,7 @@
                         {
                                 var dfd = new jQuery.Deferred();
 
-                                var acceptPattern = new RegExp('(\\.|\\/)(' + ZZ.config.medialibrary.allowed.join('|') + ')$', "i");
+                                var acceptPattern = new RegExp('(\\.|\\/)(' + ZZ.config.mediabrowser.allowed.join('|') + ')$', "i");
 
                                 $(config.selectors.fileUpload).fileupload({
                                         url: config.services.filesUpload,
@@ -380,7 +380,7 @@
                                         },
                                         submit: function(e, data) {
                                                 data.formData = {
-                                                        field: ZZ.config.medialibrary.field,
+                                                        field: ZZ.config.mediabrowser.field,
                                                         path: currentPath
                                                 };
                                         },
@@ -468,7 +468,7 @@
 
                         var selectValue = function()
                         {
-                                var item = searchValue(ZZ.config.medialibrary.value);
+                                var item = searchValue(ZZ.config.mediabrowser.value);
 
                                 item.click();
                         };
@@ -537,7 +537,7 @@
                 })();
 
 
-                ZZ.medialibrary.init();
+                ZZ.mediabrowser.init();
 
         });
 

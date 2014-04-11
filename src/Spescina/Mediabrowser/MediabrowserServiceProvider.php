@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Spescina\Mediabrowser\Medialibrary;
+use Spescina\Mediabrowser\Mediabrowser;
 
 class MediabrowserServiceProvider extends ServiceProvider {
 
@@ -53,13 +53,13 @@ class MediabrowserServiceProvider extends ServiceProvider {
 
         private function registerAlias()
         {
-                AliasLoader::getInstance()->alias('MediaLibrary', 'Spescina\Mediabrowser\Facades\MediaLibrary');
+                AliasLoader::getInstance()->alias('MediaBrowser', 'Spescina\Mediabrowser\Facades\MediaBrowser');
         }
 
         private function registerServices()
         {
                 $this->app['mediabrowser'] = $this->app->share(function($app) {
-                        return new Medialibrary();
+                        return new Mediabrowser();
                 });
         }
 }
