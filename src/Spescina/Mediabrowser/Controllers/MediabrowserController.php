@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Spescina\Mediabrowser\UploadHandler;
-use Spescina\Mediabrowser\Facades\MediaBrowser;
+use Spescina\Mediabrowser\Facades\Mediabrowser;
 
 class MediabrowserController extends Controller {
 
@@ -33,9 +33,9 @@ class MediabrowserController extends Controller {
                 
                 $field = Input::get('field');
 
-                MediaBrowser::browsePath($path, $field);
+                Mediabrowser::browsePath($path, $field);
 
-                $data = MediaBrowser::getItems();
+                $data = Mediabrowser::getItems();
 
                 return Response::json($data);
         }
@@ -50,7 +50,7 @@ class MediabrowserController extends Controller {
                 $path = Input::get('path');
                 $folder = Input::get('folder');
 
-                $exec = MediaBrowser::folderCreate($path, $folder);
+                $exec = Mediabrowser::folderCreate($path, $folder);
 
                 return Response::json(array($exec));
         }
@@ -64,7 +64,7 @@ class MediabrowserController extends Controller {
         {
                 $folder = Input::get('folder');
 
-                $exec = MediaBrowser::folderDelete($folder);
+                $exec = Mediabrowser::folderDelete($folder);
 
                 return Response::json(array($exec));
         }
@@ -80,7 +80,7 @@ class MediabrowserController extends Controller {
                 
                 $field = Input::get('field');
                 
-                $allowed = MediaBrowser::allowedExtensions($field);
+                $allowed = Mediabrowser::allowedExtensions($field);
                 
                 $options = array(
                     'script_url' => URL::route('mediabrowser.upload') . '/',
@@ -102,7 +102,7 @@ class MediabrowserController extends Controller {
         {
                 $file = Input::get('file');
 
-                $exec = MediaBrowser::fileDelete($file);
+                $exec = Mediabrowser::fileDelete($file);
 
                 return Response::json(array($exec));
         }

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class MediaBrowser extends Facade {
+class Filesystem extends Facade {
 
         /**
          * Get the registered name of the component.
@@ -11,7 +11,7 @@ class MediaBrowser extends Facade {
          */
         protected static function getFacadeAccessor()
         {
-                return 'mediabrowser';
+                return 'mediabrowser.filesystem';
         }
 
 }

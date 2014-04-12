@@ -2,7 +2,8 @@
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Spescina\Mediabrowser\Mediabrowser;
+use Spescina\Mediabrowser\Browser;
+use Spescina\Mediabrowser\Filesystem;
 
 class MediabrowserServiceProvider extends ServiceProvider {
 
@@ -47,19 +48,25 @@ class MediabrowserServiceProvider extends ServiceProvider {
         public function provides()
         {
                 return array(
-                    'mediabrowser',
+                    'mediabrowser.mediabrowser',
+                    'mediabrowser.filesystem',
                 );
         }
 
         private function registerAlias()
         {
-                AliasLoader::getInstance()->alias('MediaBrowser', 'Spescina\Mediabrowser\Facades\MediaBrowser');
+                AliasLoader::getInstance()->alias('Mediabrowser', 'Spescina\Mediabrowser\Facades\Mediabrowser');
+                AliasLoader::getInstance()->alias('Filesystem', 'Spescina\Mediabrowser\Facades\Filesystem');
         }
 
         private function registerServices()
         {
-                $this->app['mediabrowser'] = $this->app->share(function($app) {
-                        return new Mediabrowser();
+                $this->app['mediabrowser.mediabrowser'] = $this->app->share(function($app) {
+                        return new Browser();
+                });
+                
+                $this->app['mediabrowser.filesystem'] = $this->app->share(function($app) {
+                        return new Filesystem();
                 });
         }
 }

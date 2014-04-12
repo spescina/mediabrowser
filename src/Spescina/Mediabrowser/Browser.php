@@ -1,12 +1,12 @@
 <?php namespace Spescina\Mediabrowser;
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
+use Spescina\Mediabrowser\Facades\Filesystem;
 use Spescina\Mediabrowser\Item;
 
-class Mediabrowser {
+class Browser {
 
         private $items = array();
         private $config;
@@ -35,63 +35,20 @@ class Mediabrowser {
         {
                 $realPath = public_path($path);
 
-                if (!$this->validatePath($realPath))
+                if ( ! Filesystem::validatePath($realPath))
                 {
                         return false;
                 }
 
                 $this->path = $path;
 
-                $folders = self::getFolders($realPath);
+                $folders = Filesystem::getFolders($realPath);
 
                 $this->parseFolders($folders);
 
-                $files = self::getFiles($realPath);
+                $files = Filesystem::getFiles($realPath);
 
                 $this->parseFiles($files, $field);
-        }
-
-        /**
-         * Return folders in path
-         *
-         * @param string $path
-         * @return mixed
-         */
-        private static function getFolders($path)
-        {
-                return File::directories($path);
-        }
-
-        /**
-         * Return files in path
-         *
-         * @param string $path
-         * @return mixed
-         */
-        private static function getFiles($path)
-        {
-                return File::files($path);
-        }
-
-        /**
-         * Checl if the given path passes the filesystem validation
-         *
-         * @param string $path
-         * @return boolean
-         */
-        private function validatePath($path)
-        {
-                if (!File::exists($path))
-                {
-                        return false;
-                }
-
-                if (!File::isDirectory($path))
-                {
-                        return false;
-                }
-
-                return true;
         }
 
         /**
@@ -138,7 +95,7 @@ class Mediabrowser {
         {
                 foreach ($items as $item)
                 {
-                        $extension = self::extension($item);
+                        $extension = Filesystem::extension($item);
 
                         if ($this->allowed($extension, $field))
                         {
@@ -164,16 +121,6 @@ class Mediabrowser {
                 $final = array_merge($items, $this->items);
 
                 return $final;
-        }
-
-        /**
-         * Return the type of the resource
-         * 
-         * @param string $path
-         */
-        static function extension($path)
-        {
-                return File::extension($path);
         }
 
         /**
@@ -220,33 +167,11 @@ class Mediabrowser {
                         return $this->config['basepath'];
                 }
 
-                $segments = $this->pathToArray($this->path);
+                $segments = Filesystem::pathToArray($this->path);
 
                 array_pop($segments);
 
-                return $this->arrayToPath($segments);
-        }
-
-        /**
-         * Convert given path in an array of segments
-         *
-         * @param string path
-         * @returns array
-         */
-        private function pathToArray($path)
-        {
-                return explode('/', $path);
-        }
-
-        /**
-         * Convert given array of segments in a path
-         *
-         * @param array segments
-         * @returns string
-         */
-        private function arrayToPath($segments)
-        {
-                return implode('/', $segments);
+                return Filesystem::arrayToPath($segments);
         }
 
         /**
@@ -258,62 +183,6 @@ class Mediabrowser {
         public function localize($section)
         {
                 return Lang::get('mediabrowser::mediabrowser.' . $section);
-        }
-
-        /**
-         * Create a folder at the given path
-         * 
-         * @param string $path
-         * @param string $folder
-         * @return boolean
-         */
-        public function folderCreate($path, $folder)
-        {
-                $realPath = public_path($path . '/' . $folder);
-
-                File::makeDirectory($realPath);
-
-                return true;
-        }
-
-        /**
-         * Delete the folder with the given path
-         * 
-         * @param string $folder
-         * @return boolean
-         */
-        public function folderDelete($folder)
-        {
-                $realPath = public_path($folder);
-
-                if (!File::isDirectory($realPath))
-                {
-                        return false;
-                }
-
-                File::deleteDirectory($realPath);
-
-                return true;
-        }
-
-        /**
-         * Delete the file with the given path
-         * 
-         * @param string $file
-         * @return boolean
-         */
-        public function fileDelete($file)
-        {
-                $realPath = public_path($file);
-
-                if (!File::isFile($realPath))
-                {
-                        return false;
-                }
-
-                File::delete($realPath);
-
-                return true;
         }
 
         /**

@@ -1,9 +1,8 @@
 <?php
 /*
   |--------------------------------------------------------------------------
-  | Application View Composers
+  | Mediabrowser View Composers
   |--------------------------------------------------------------------------
-  |
  */
 
 View::composer('mediabrowser::mediabrowser', 'Spescina\\Mediabrowser\\Composers\\MediabrowserComposer');
