@@ -45,6 +45,21 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                 $this->assertTrue($delete);
         }
         
+        /**
+         * @expectedException Spescina\Mediabrowser\Exceptions\FileDoesNotExists
+         */
+        public function test_fail_file_delete()
+        {
+                File::shouldReceive('isFile')
+                        ->once()
+                        ->with('vfs://root/txt.txt')
+                        ->andReturn(false);
+                
+                $fs = new Filesystem(vfsStream::url('root'));
+                
+                $fs->fileDelete('txt.txt');
+        }
+        
         public function test_folder_delete()
         {
                 File::shouldReceive('isDirectory')
@@ -62,6 +77,21 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                 $delete = $fs->folderDelete('folder');
                 
                 $this->assertTrue($delete);
+        }
+        
+        /**
+         * @expectedException Spescina\Mediabrowser\Exceptions\DirectoryDoesNotExists
+         */
+        public function test_fail_folder_delete()
+        {
+                File::shouldReceive('isDirectory')
+                        ->once()
+                        ->with('vfs://root/bad_folder')
+                        ->andReturn(false);
+                
+                $fs = new Filesystem(vfsStream::url('root'));
+                
+                $fs->folderDelete('bad_folder');
         }
         
         public function test_folder_create()

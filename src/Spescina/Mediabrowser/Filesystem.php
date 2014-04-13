@@ -1,6 +1,7 @@
 <?php namespace Spescina\Mediabrowser;
 
 use Illuminate\Support\Facades\File;
+use Spescina\Mediabrowser\Exceptions\DirectoryDoesNotExists;
 use Spescina\Mediabrowser\Exceptions\FileDoesNotExists;
 
 class Filesystem {
@@ -38,7 +39,7 @@ class Filesystem {
         {
                 if ( ! File::isDirectory($this->getPath($folder)))
                 {
-                        throw new DirecotryDoesNotExists;
+                        throw new DirectoryDoesNotExists;
                 }
 
                 return File::deleteDirectory($this->getPath($folder));

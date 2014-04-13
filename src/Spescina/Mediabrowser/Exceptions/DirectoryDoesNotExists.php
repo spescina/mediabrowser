@@ -1,3 +1,3 @@
 <?php namespace Spescina\Mediabrowser\Exceptions;
 
-class DirectoryDoesNotExists extends Exception {}
+class DirectoryDoesNotExists extends \Exception {}
