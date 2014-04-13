@@ -18,7 +18,8 @@
                 "spescina/pkg-support": "1.x"
         },
         "require-dev": {
-                "mockery/mockery": "0.9.*"
+                "mockery/mockery": "0.9.*",
+                "mikey179/vfsStream": "dev-master"
         },
         "autoload": {
                 "psr-0": {

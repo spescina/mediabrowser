@@ -1,8 +1,16 @@
 <?php namespace Spescina\Mediabrowser;
 
 use Illuminate\Support\Facades\File;
+use Spescina\Mediabrowser\Exceptions\FileDoesNotExists;
 
 class Filesystem {
+
+        private $root;
+
+        public function __construct($root = null)
+        {
+                $this->root = $root ? : public_path();
+        }
 
         /**
          * Delete the file with the given path
@@ -12,16 +20,12 @@ class Filesystem {
          */
         public function fileDelete($file)
         {
-                $realPath = public_path($file);
-
-                if ( ! File::isFile($realPath))
+                if ( ! File::isFile($this->getPath($file)))
                 {
-                        return false;
+                        throw new FileDoesNotExists;
                 }
 
-                File::delete($realPath);
-
-                return true;
+                return File::delete($this->getPath($file));
         }
 
         /**
@@ -32,16 +36,12 @@ class Filesystem {
          */
         public function folderDelete($folder)
         {
-                $realPath = public_path($folder);
-
-                if ( ! File::isDirectory($realPath))
+                if ( ! File::isDirectory($this->getPath($folder)))
                 {
-                        return false;
+                        throw new DirecotryDoesNotExists;
                 }
 
-                File::deleteDirectory($realPath);
-
-                return true;
+                return File::deleteDirectory($this->getPath($folder));
         }
 
         /**
@@ -53,11 +53,7 @@ class Filesystem {
          */
         public function folderCreate($path, $folder)
         {
-                $realPath = public_path($path . '/' . $folder);
-
-                File::makeDirectory($realPath);
-
-                return true;
+                return File::makeDirectory($this->getPath($path . '/' . $folder));;
         }
 
         /**
@@ -68,7 +64,7 @@ class Filesystem {
          */
         public function getFolders($path)
         {
-                return File::directories($path);
+                return File::directories($this->getPath($path));
         }
 
         /**
@@ -79,7 +75,7 @@ class Filesystem {
          */
         public function getFiles($path)
         {
-                return File::files($path);
+                return File::files($this->getPath($path));
         }
 
         /**
@@ -90,12 +86,12 @@ class Filesystem {
          */
         public function validatePath($path)
         {
-                if ( ! File::exists($path))
+                if ( ! File::exists($this->getPath($path)))
                 {
                         return false;
                 }
 
-                if ( ! File::isDirectory($path))
+                if ( ! File::isDirectory($this->getPath($path)))
                 {
                         return false;
                 }
@@ -110,7 +106,7 @@ class Filesystem {
          */
         public function extension($path)
         {
-                return File::extension($path);
+                return File::extension($this->getPath($path));
         }
 
         /**
@@ -133,6 +129,11 @@ class Filesystem {
         public function arrayToPath($segments)
         {
                 return implode('/', $segments);
+        }
+
+        private function getPath($piece)
+        {
+                return $this->root . '/' . $piece;
         }
 
 }
