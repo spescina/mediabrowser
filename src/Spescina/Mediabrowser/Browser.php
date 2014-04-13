@@ -1,27 +1,28 @@
 <?php namespace Spescina\Mediabrowser;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
 use Spescina\Mediabrowser\Facades\Filesystem;
 use Spescina\Mediabrowser\Item;
+use Spescina\PkgSupport\PackageInterface;
+use Spescina\PkgSupport\ServiceInterface;
 
-class Browser {
+class Browser implements PackageInterface {
+
+        use \Spescina\PkgSupport\PkgTrait;
 
         private $items = array();
-        private $config;
-        private $field;
         private $path;
 
-        const ALL_TYPE = 'all';
-        const AUDIO_TYPE = 'audio';
-        const DOC_TYPE = 'doc';
-        const IMAGE_TYPE = 'image';
-        const VIDEO_TYPE = 'video';
+        const TYPE_ALL = 'all';
+        const TYPE_AUDIO = 'audio';
+        const TYPE_DOC = 'doc';
+        const TYPE_IMAGE = 'image';
+        const TYPE_VIDEO = 'video';
 
-        public function __construct()
+        public function __construct(ServiceInterface $config, ServiceInterface $lang)
         {
-                $this->config = Config::get('mediabrowser::mediabrowser');
+                $this->config = $config;
+                $this->lang = $lang;
         }
 
         /**
@@ -35,7 +36,7 @@ class Browser {
         {
                 $realPath = public_path($path);
 
-                if ( ! Filesystem::validatePath($realPath))
+                if (!Filesystem::validatePath($realPath))
                 {
                         return false;
                 }
@@ -59,17 +60,7 @@ class Browser {
          */
         public function configToJSON()
         {
-                return json_encode($this->config());
-        }
-
-        /**
-         * Set the config array of the component in the local var
-         * 
-         * @return array
-         */
-        public function config()
-        {
-                return $this->config;
+                return json_encode($this->conf());
         }
 
         /**
@@ -147,7 +138,7 @@ class Browser {
          */
         private function isRoot()
         {
-                if ($this->path === $this->config['basepath'])
+                if ($this->path === $this->conf('basepath'))
                 {
                         return true;
                 }
@@ -164,7 +155,7 @@ class Browser {
         {
                 if ($this->isRoot())
                 {
-                        return $this->config['basepath'];
+                        return $this->conf('basepath');
                 }
 
                 $segments = Filesystem::pathToArray($this->path);
@@ -172,17 +163,6 @@ class Browser {
                 array_pop($segments);
 
                 return Filesystem::arrayToPath($segments);
-        }
-
-        /**
-         * Return the localized requested string
-         *
-         * @param string $section
-         * @return string
-         */
-        public function localize($section)
-        {
-                return Lang::get('mediabrowser::mediabrowser.' . $section);
         }
 
         /**
@@ -197,12 +177,11 @@ class Browser {
 
                 $mediabrowserType = $fields[$field]['allowed'];
 
-                if ($mediabrowserType === self::ALL_TYPE)
+                if ($mediabrowserType === self::TYPE_ALL)
                 {
-
                         $extensions = array();
 
-                        foreach ($this->config['types'] as $ext)
+                        foreach ($this->conf('types') as $ext)
                         {
                                 $extensions = array_merge($extensions, $ext);
                         }
@@ -210,7 +189,7 @@ class Browser {
                         return $extensions;
                 }
 
-                return $this->config['types'][$mediabrowserType];
+                return $this->conf("types.$mediabrowserType");
         }
 
         /**

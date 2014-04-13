@@ -4,6 +4,8 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Spescina\Mediabrowser\Browser;
 use Spescina\Mediabrowser\Filesystem;
+use Spescina\PkgSupport\Config;
+use Spescina\PkgSupport\Lang;
 
 class MediabrowserServiceProvider extends ServiceProvider {
 
@@ -62,7 +64,7 @@ class MediabrowserServiceProvider extends ServiceProvider {
         private function registerServices()
         {
                 $this->app['mediabrowser.mediabrowser'] = $this->app->share(function($app) {
-                        return new Browser();
+                        return new Browser(new Config('mediabrowser'), new Lang('mediabrowser'));
                 });
                 
                 $this->app['mediabrowser.filesystem'] = $this->app->share(function($app) {

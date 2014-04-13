@@ -1,6 +1,5 @@
 <?php namespace Spescina\Mediabrowser;
 
-use Illuminate\Support\Facades\Config;
 use Spescina\Mediabrowser\Facades\Filesystem;
 use Spescina\Mediabrowser\Facades\Mediabrowser;
 
@@ -90,17 +89,15 @@ class Item {
          */
         private function extractPublicPath($path)
         {
-                $config = Mediabrowser::config();
+                $rootPath = public_path(Mediabrowser::conf('basepath'));
 
-                $rootPath = public_path($config['basepath']);
+                $rootNode = Filesystem::pathToArray($rootPath);
 
-                $rootNode = self::pathToArray($rootPath);
-
-                $pathNode = self::pathToArray($path);
+                $pathNode = Filesystem::pathToArray($path);
 
                 $diff = array_diff($pathNode, $rootNode);
 
-                $relativePath = array($config['basepath']);
+                $relativePath = array(Mediabrowser::conf('basepath'));
 
                 $final = array_merge($relativePath, $diff);
 
@@ -157,7 +154,7 @@ class Item {
         {
                 $resourceUrl = $this->thumb();
                 
-                $url = ($this->config('imgproxy')) ? $this->imgproxyResizerUrl($resourceUrl, $width, $height) : $resourceUrl;
+                $url = (Mediabrowser::conf('imgproxy')) ? $this->imgproxyResizerUrl($resourceUrl, $width, $height) : $resourceUrl;
                 
                 return asset($url);
         }
@@ -172,35 +169,13 @@ class Item {
          */
         private function imgproxyResizerUrl($resourceUrl, $width, $height)
         {
-                $width = is_null($width) ? $this->config('thumbs.width') : $width;
+                $width = is_null($width) ? Mediabrowser::conf('thumbs.width') : $width;
                 
-                $height = is_null($height) ? $this->config('thumbs.height') : $height;
+                $height = is_null($height) ? Mediabrowser::conf('thumbs.height') : $height;
                 
                 $resizePrefix = "packages/spescina/imgproxy/$width/$height/2/70/";
                 
                 return $resizePrefix . $resourceUrl;
-        }
-
-        /**
-         * Convert the path in array splitted by the forward slash separator
-         * 
-         * @param string $path
-         * @return array
-         */
-        static function pathToArray($path)
-        {
-                return explode('/', $path);
-        }
-        
-        /**
-         * Get a config value from the config object
-         * 
-         * @param string $key
-         * @return string
-         */
-        private function config($key)
-        {
-                return Config::get('mediabrowser::mediabrowser.' . $key);
         }
 
 }
