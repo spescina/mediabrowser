@@ -119,4 +119,23 @@ class BrowserTest extends PHPUnit_Framework_TestCase {
                 
                 $this->assertEquals('["mp3","wav"]', $json);
         }
+        
+        /*public function test_browse_path()
+        {
+                Filesystem::shouldReceive('validatePath')
+                        ->once()
+                        ->with('uploads')
+                        ->andReturn(true);
+                
+                Filesystem::shouldReceive('getFolders')
+                        ->once()
+                        ->with('uploads')
+                        ->andReturn(array('foo', 'bar'));
+                
+                $this->browser->browsePath('uploads', 'media');
+                
+                $path = $this->browser->getPath();
+                
+                $this->assertEquals('uploads', $path);
+        }*/
 }

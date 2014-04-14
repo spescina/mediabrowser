@@ -1,16 +1,17 @@
 <?php namespace Spescina\Mediabrowser;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Spescina\Mediabrowser\Exceptions\DirectoryDoesNotExists;
 use Spescina\Mediabrowser\Exceptions\FileDoesNotExists;
 
 class Filesystem {
 
-        private $root;
+        public $root;
 
         public function __construct($root = null)
-        {
-                $this->root = $root ? : public_path();
+        {                
+                $this->root = $root ? : App::make('path.public');
         }
 
         /**
@@ -18,7 +19,7 @@ class Filesystem {
          * 
          * @param string $file
          * @return boolean
-         * @throws Spescina\Mediabrowser\Exceptions\FileDoesNotExists
+         * @throws FileDoesNotExists
          */
         public function fileDelete($file)
         {
@@ -35,7 +36,7 @@ class Filesystem {
          * 
          * @param string $folder
          * @return boolean
-         * @throws Spescina\Mediabrowser\Exceptions\DirectoryDoesNotExists
+         * @throws DirectoryDoesNotExists
          */
         public function folderDelete($folder)
         {
@@ -147,7 +148,13 @@ class Filesystem {
                 return array_pop($segments);
         }
 
-        private function getPath($piece)
+        /**
+         * Get the full path including the root
+         * 
+         * @param string $piece
+         * @return string
+         */
+        public function getPath($piece)
         {
                 return $this->root . '/' . $piece;
         }

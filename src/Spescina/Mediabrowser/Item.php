@@ -1,6 +1,7 @@
 <?php namespace Spescina\Mediabrowser;
 
-use Spescina\Mediabrowser\Facades\Filesystem;
+use Illuminate\Support\Facades\URL;
+use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
 use Spescina\Mediabrowser\Facades\Mediabrowser;
 
 class Item {
@@ -45,7 +46,7 @@ class Item {
          *
          * @var string
          */
-        public $icon;
+        public $thumb;
 
         /**
          * Setup of the resource
@@ -53,42 +54,19 @@ class Item {
          * @param string $fullPath
          * @param bool $folder
          */
-        public function __construct($fullPath, $folder = false, $back = false)
+        public function __construct($path, $folder = false, $back = false)
         {
-                $this->path = $this->extractPublicPath($fullPath);
+                $this->path = $path;
 
-                $this->name = $back ? '..' : $this->extractName($fullPath);
+                $this->name = ($folder && $back) ? '..' : FsFacade::extractName($path);
 
-                $this->extension = Filesystem::extension($fullPath);
+                $this->extension = FsFacade::extension($path);
 
                 $this->folder = $folder;
 
-                $this->back = $back;
+                $this->back = $folder && $back;
 
                 $this->thumb = $this->thumbUrl();
-        }
-
-        /**
-         * Remove the server private path from the full path of the resource
-         * 
-         * @param string $path
-         * @return string
-         */
-        private function extractPublicPath($path)
-        {
-                $rootPath = public_path(Mediabrowser::conf('basepath'));
-
-                $rootNode = Filesystem::pathToArray($rootPath);
-
-                $pathNode = Filesystem::pathToArray($path);
-
-                $diff = array_diff($pathNode, $rootNode);
-
-                $relativePath = array(Mediabrowser::conf('basepath'));
-
-                $final = array_merge($relativePath, $diff);
-
-                return implode('/', $final);
         }
 
         /**
@@ -143,7 +121,7 @@ class Item {
                 
                 $url = (Mediabrowser::conf('imgproxy')) ? $this->imgproxyResizerUrl($resourceUrl, $width, $height) : $resourceUrl;
                 
-                return asset($url);
+                return URL::asset($url);
         }
         
         /**

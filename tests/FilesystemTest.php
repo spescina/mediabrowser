@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
-use org\bovigo\vfs\vfsStream;
 use Mockery as m;
+use org\bovigo\vfs\vfsStream;
 use Spescina\Mediabrowser\Filesystem;
 
 class FilesystemTest extends PHPUnit_Framework_TestCase {
@@ -28,6 +29,17 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
         public function tearDown()
         {
                 m::close();
+        }
+        
+        public function test_instantiate()
+        {
+                App::shouldReceive('make')
+                        ->with('path.public')
+                        ->andReturn('/var/www/uploads');
+                
+                $fs = new Filesystem();
+                
+                $this->assertEquals('/var/www/uploads', $fs->root);
         }
         
         public function test_file_delete()
@@ -191,6 +203,13 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                 $name = $this->fs->extractName('my/folder/path');
                 
                 $this->assertEquals('path', $name);
+        }
+        
+        public function test_get_path()
+        {
+                $path = $this->fs->getPath('uploads');
+                
+                $this->assertEquals('vfs://root/uploads', $path);
         }
 
 }
