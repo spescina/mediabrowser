@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\Session;
 use Mockery as m;
 use Spescina\Mediabrowser\Browser;
+use Spescina\Mediabrowser\Facades\Filesystem;
 use Spescina\PkgSupport\Config;
 use Spescina\PkgSupport\Lang;
 
@@ -41,6 +42,7 @@ class BrowserTest extends PHPUnit_Framework_TestCase {
                         ));
                 
                 IlluminateConfig::shouldReceive('get')
+                        ->once()
                         ->andReturn($this->types);
                 
                 $extensions = $this->browser->allowedExtensions('media');
@@ -60,8 +62,61 @@ class BrowserTest extends PHPUnit_Framework_TestCase {
                             )
                         ));
                 
+                IlluminateConfig::shouldReceive('get')
+                        ->once()
+                        ->andReturn($this->types);
+                
                 $extensions = $this->browser->allowedExtensions('media');
                 
                 $this->assertEquals(array('mp3','wav'), $extensions);
+        }
+        
+        /**
+         * @expectedException \Exception
+         */
+        public function test_extensions_group_not_available()
+        {
+                Session::shouldReceive('get')
+                        ->once()
+                        ->with('formFields')
+                        ->andReturn(array(
+                            'media' => array(
+                                'type' => 'media',
+                                'allowed' => 'foo'
+                            )
+                        ));
+                
+                $this->browser->allowedExtensions('media');
+        }
+        
+        public function test_config_to_json()
+        {
+                IlluminateConfig::shouldReceive('get')
+                        ->once()
+                        ->andReturn(array(
+                            'foo' => 'a',
+                            'bar' => 'b'
+                        ));
+                
+                $json = $this->browser->configToJSON();
+                
+                $this->assertEquals('{"foo":"a","bar":"b"}', $json);
+        }
+        
+        public function test_allowed_extensions_to_json()
+        {
+                Session::shouldReceive('get')
+                        ->once()
+                        ->with('formFields')
+                        ->andReturn(array(
+                            'media' => array(
+                                'type' => 'media',
+                                'allowed' => Browser::TYPE_AUDIO
+                            )
+                        ));
+                
+                $json = $this->browser->allowedExtensionsToJSON('media');
+                
+                $this->assertEquals('["mp3","wav"]', $json);
         }
 }

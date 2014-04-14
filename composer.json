@@ -19,7 +19,8 @@
         },
         "require-dev": {
                 "mockery/mockery": "0.9.*",
-                "mikey179/vfsStream": "dev-master"
+                "mikey179/vfsStream": "dev-master",
+                "satooshi/php-coveralls": "dev-master"
         },
         "autoload": {
                 "psr-0": {

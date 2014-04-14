@@ -36,7 +36,7 @@ class Browser implements PackageInterface {
         {
                 $realPath = public_path($path);
 
-                if (!Filesystem::validatePath($realPath))
+                if ( ! Filesystem::validatePath($realPath))
                 {
                         return false;
                 }
@@ -104,7 +104,7 @@ class Browser implements PackageInterface {
         {
                 $items = array();
 
-                if (!$this->isRoot())
+                if ( ! $this->isRoot())
                 {
                         $items[] = new Item($this->parentFolder(), true, true);
                 }
@@ -175,13 +175,13 @@ class Browser implements PackageInterface {
         public function allowedExtensions($field)
         {
                 $mediabrowserType = $this->getType($field);
-
+                
                 if ($mediabrowserType === self::TYPE_ALL)
                 {
-                        return $this->getAllAllowedExtensions();
+                        return $this->allAllowedExtensions();
                 }
                 
-                $types = $this->conf("types");
+                $types = $this->conf('types');
                 
                 if ( ! isset($types[$mediabrowserType])) {
                         throw new \Exception;
@@ -196,7 +196,7 @@ class Browser implements PackageInterface {
          * @param string $field
          * @return string
          */
-        public function jsonAllowedExtensions($field)
+        public function allowedExtensionsToJSON($field)
         {
                 return json_encode($this->allowedExtensions($field));
         }
@@ -224,7 +224,7 @@ class Browser implements PackageInterface {
          * 
          * @return array
          */
-        private function getAllAllowedExtensions()
+        private function allAllowedExtensions()
         {
                 $extensions = array();
 
