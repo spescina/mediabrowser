@@ -6,6 +6,8 @@ use Mockery as m;
 use Spescina\Mediabrowser\Filesystem;
 
 class FilesystemTest extends PHPUnit_Framework_TestCase {
+        
+        private $fs;
 
         public function setUp()
         {
@@ -19,6 +21,8 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                 );
                 
                 vfsStream::setup('root', null, $fs);
+                
+                $this->fs = new Filesystem(vfsStream::url('root'));
         }
         
         public function tearDown()
@@ -38,9 +42,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/foo.txt')
                         ->andReturn(true);
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $delete = $fs->fileDelete('foo.txt');
+                $delete = $this->fs->fileDelete('foo.txt');
                 
                 $this->assertTrue($delete);
         }
@@ -55,9 +57,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/txt.txt')
                         ->andReturn(false);
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $fs->fileDelete('txt.txt');
+                $this->fs->fileDelete('txt.txt');
         }
         
         public function test_folder_delete()
@@ -72,9 +72,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/folder')
                         ->andReturn(true);
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $delete = $fs->folderDelete('folder');
+                $delete = $this->fs->folderDelete('folder');
                 
                 $this->assertTrue($delete);
         }
@@ -89,9 +87,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/bad_folder')
                         ->andReturn(false);
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $fs->folderDelete('bad_folder');
+                $this->fs->folderDelete('bad_folder');
         }
         
         public function test_folder_create()
@@ -101,9 +97,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/folder/new_folder')
                         ->andReturn(true);
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $create = $fs->folderCreate('folder', 'new_folder');
+                $create = $this->fs->folderCreate('folder', 'new_folder');
                 
                 $this->assertTrue($create);
         }
@@ -115,9 +109,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/folder')
                         ->andReturn(array('folder_1', 'folder_2'));
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $folders = $fs->getFolders('folder');
+                $folders = $this->fs->getFolders('folder');
                 
                 $this->assertEquals(array('folder_1', 'folder_2'), $folders);
         }
@@ -129,9 +121,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/folder')
                         ->andReturn(array('bar.txt'));
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $files = $fs->getFiles('folder');
+                $files = $this->fs->getFiles('folder');
                 
                 $this->assertEquals(array('bar.txt'), $files);
         }
@@ -143,9 +133,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/foo.txt')
                         ->andReturn('txt');
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $ext = $fs->extension('foo.txt');
+                $ext = $this->fs->extension('foo.txt');
                 
                 $this->assertEquals('txt', $ext);
         }
@@ -162,9 +150,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/foo.txt')
                         ->andReturn(false);
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $check = $fs->validatePath('foo.txt');
+                $check = $this->fs->validatePath('foo.txt');
                 
                 $this->assertFalse($check);
         }
@@ -181,29 +167,30 @@ class FilesystemTest extends PHPUnit_Framework_TestCase {
                         ->with('vfs://root/folder')
                         ->andReturn(true);
                 
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $check = $fs->validatePath('folder');
+                $check = $this->fs->validatePath('folder');
                 
                 $this->assertTrue($check);
         }
         
         public function test_array_to_path()
         {
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $path = $fs->arrayToPath(array('my', 'folder', 'path'));
+                $path = $this->fs->arrayToPath(array('my', 'folder', 'path'));
                 
                 $this->assertEquals('my/folder/path', $path);
         }
         
         public function test_path_to_array()
         {
-                $fs = new Filesystem(vfsStream::url('root'));
-                
-                $array = $fs->pathToArray('my/folder/path');
+                $array = $this->fs->pathToArray('my/folder/path');
                 
                 $this->assertEquals(array('my', 'folder', 'path'), $array);
+        }
+        
+        public function test_extract_name()
+        {
+                $name = $this->fs->extractName('my/folder/path');
+                
+                $this->assertEquals('path', $name);
         }
 
 }

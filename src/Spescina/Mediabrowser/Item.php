@@ -69,19 +69,6 @@ class Item {
         }
 
         /**
-         * Return only the file|folder name
-         * 
-         * @param string $path
-         * @return string
-         */
-        private function extractName($path)
-        {
-                $segments = explode('/', $path);
-
-                return array_pop($segments);
-        }
-
-        /**
          * Remove the server private path from the full path of the resource
          * 
          * @param string $path

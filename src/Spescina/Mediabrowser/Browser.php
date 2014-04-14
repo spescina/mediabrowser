@@ -170,26 +170,24 @@ class Browser implements PackageInterface {
          * 
          * @param string $field
          * @return array
+         * @throws \Exception
          */
         public function allowedExtensions($field)
         {
-                $fields = Session::get('formFields');
-
-                $mediabrowserType = $fields[$field]['allowed'];
+                $mediabrowserType = $this->getType($field);
 
                 if ($mediabrowserType === self::TYPE_ALL)
                 {
-                        $extensions = array();
-
-                        foreach ($this->conf('types') as $ext)
-                        {
-                                $extensions = array_merge($extensions, $ext);
-                        }
-
-                        return $extensions;
+                        return $this->getAllAllowedExtensions();
                 }
-
-                return $this->conf("types.$mediabrowserType");
+                
+                $types = $this->conf("types");
+                
+                if ( ! isset($types[$mediabrowserType])) {
+                        throw new \Exception;
+                }
+                
+                return $types[$mediabrowserType];
         }
 
         /**
@@ -201,6 +199,41 @@ class Browser implements PackageInterface {
         public function jsonAllowedExtensions($field)
         {
                 return json_encode($this->allowedExtensions($field));
+        }
+        
+        /**
+         * Return the type of the instantiated mediabrowser
+         * 
+         * @param type $field
+         * @return type
+         * @throws \Exception
+         */
+        private function getType($field)
+        {
+                $fields = Session::get('formFields');
+
+                if ( ! isset($fields[$field]['allowed'])) {
+                        throw new \Exception;
+                }
+                
+                return $fields[$field]['allowed'];
+        }
+        
+        /**
+         * Return all allowed defined extensions
+         * 
+         * @return array
+         */
+        private function getAllAllowedExtensions()
+        {
+                $extensions = array();
+
+                foreach ($this->conf('types') as $ext)
+                {
+                        $extensions = array_merge($extensions, $ext);
+                }
+                
+                return $extensions;
         }
 
 }

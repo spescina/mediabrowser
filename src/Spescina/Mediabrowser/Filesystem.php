@@ -18,6 +18,7 @@ class Filesystem {
          * 
          * @param string $file
          * @return boolean
+         * @throws Spescina\Mediabrowser\Exceptions\FileDoesNotExists
          */
         public function fileDelete($file)
         {
@@ -34,6 +35,7 @@ class Filesystem {
          * 
          * @param string $folder
          * @return boolean
+         * @throws Spescina\Mediabrowser\Exceptions\DirectoryDoesNotExists
          */
         public function folderDelete($folder)
         {
@@ -130,6 +132,19 @@ class Filesystem {
         public function arrayToPath($segments)
         {
                 return implode('/', $segments);
+        }
+        
+        /**
+         * Return only the file|folder name
+         * 
+         * @param string $path
+         * @return string
+         */
+        public function extractName($path)
+        {
+                $segments = $this->pathToArray($path);
+
+                return array_pop($segments);
         }
 
         private function getPath($piece)
