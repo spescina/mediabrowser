@@ -57,7 +57,7 @@ class Item {
         {
                 $this->path = $this->extractPublicPath($fullPath);
 
-                $this->name = $back ? '..' : $this->extractName($fullPath);
+                $this->name = $back ? '..' : Filesystem::extractName($fullPath);
 
                 $this->extension = Filesystem::extension($fullPath);
 
