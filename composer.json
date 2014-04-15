@@ -23,12 +23,12 @@
                 "mikey179/vfsStream": "dev-master",
                 "satooshi/php-coveralls": "dev-master"
         },
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/antoniofrignani/laravel4-asset.git"
-		}
-	],
+        "repositories": [
+                {
+                        "type": "vcs",
+                        "url": "https://github.com/antoniofrignani/laravel4-asset.git"
+                }
+        ],
         "autoload": {
                 "psr-0": {
                         "Spescina": "src/"
