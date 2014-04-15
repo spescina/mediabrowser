@@ -51,7 +51,7 @@ class Item {
         /**
          * Setup of the resource
          * 
-         * @param string $fullPath
+         * @param string $path
          * @param bool $folder
          */
         public function __construct($path, $folder = false, $back = false)

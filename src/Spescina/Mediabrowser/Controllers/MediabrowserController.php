@@ -90,7 +90,7 @@ class MediabrowserController extends Controller {
                     'accept_file_types' => '@(\.|\/)(' . implode('|', $allowed) . ')$@i',
                 );
                 
-                $upload_handler = new UploadHandler($options);
+                new UploadHandler($options);
         }
         
         /**

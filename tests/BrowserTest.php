@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Mockery as m;
 use Spescina\Mediabrowser\Browser;
-use Spescina\Mediabrowser\Facades\Filesystem;
+use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
+use Spescina\Mediabrowser\Facades\Mediabrowser;
+use Spescina\Mediabrowser\Item;
 use Spescina\PkgSupport\Config;
 use Spescina\PkgSupport\Lang;
 
@@ -72,7 +75,7 @@ class BrowserTest extends PHPUnit_Framework_TestCase {
         }
         
         /**
-         * @expectedException \Exception
+         * @expectedException Exception
          */
         public function test_extensions_group_not_available()
         {
@@ -119,6 +122,45 @@ class BrowserTest extends PHPUnit_Framework_TestCase {
                 
                 $this->assertEquals('["mp3","wav"]', $json);
         }
+        
+        /*public function test_add_item()
+        {
+                FsFacade::shouldReceive('extractName')
+                        ->once()
+                        ->with('foo/bar.txt')
+                        ->andReturn('bar.txt');
+                
+                FsFacade::shouldReceive('extension')
+                        ->once()
+                        ->with('foo/bar.txt')
+                        ->andReturn('txt');
+                
+                Mediabrowser::shouldReceive('conf')
+                        ->once()
+                        ->with('imgproxy')
+                        ->andReturn(false);
+                
+                URL::shouldReceive('asset')
+                        ->once()
+                        ->with('packages/spescina/mediabrowser/src/img/icons/txt.png')
+                        ->andReturn('http://www.example.com/packages/spescina/mediabrowser/src/img/icons/txt.png');
+                
+                FsFacade::shouldReceive('pathToArray')
+                        ->once()
+                        ->andReturn(array('path'));
+                
+                FsFacade::shouldReceive('arrayToPath')
+                        ->once()
+                        ->andReturn(array());
+                
+                $item = new Item('foo/bar.txt');
+                
+                $this->assertEmpty($this->browser->getItems());
+                
+                $this->browser->addItem($item);
+                
+                $this->assertContains($item, $this->browser->getItems());
+        }*/
         
         /*public function test_browse_path()
         {

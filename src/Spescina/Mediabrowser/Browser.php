@@ -70,7 +70,7 @@ class Browser implements PackageInterface {
          * Return the local config var in json notation
          * embeddable as a javascript config object
          *
-         * @return json
+         * @return string
          */
         public function configToJSON()
         {
@@ -86,7 +86,7 @@ class Browser implements PackageInterface {
         {
                 foreach ($items as $item)
                 {
-                        $this->items[] = new Item($item, true);
+                        $this->addItem(new Item($item, true));
                 }
         }
 
@@ -104,7 +104,7 @@ class Browser implements PackageInterface {
 
                         if ($this->allowed($extension, $field))
                         {
-                                $this->items[] = new Item($item);
+                                $this->addItem(new Item($item));
                         }
                 }
         }
@@ -275,9 +275,19 @@ class Browser implements PackageInterface {
          */
         private function files()
         {
-                $files = FsFacade::getFiles($this->path, $this->field);
+                $files = FsFacade::getFiles($this->path);
 
-                $this->parseFiles($files);
+                $this->parseFiles($files, $this->field);
+        }
+        
+        /**
+         * Add one item to the item list
+         * 
+         * @param \Spescina\Mediabrowser\Item $item
+         */
+        public function addItem(Item $item)
+        {
+                $this->items[] = $item;
         }
 
 }
