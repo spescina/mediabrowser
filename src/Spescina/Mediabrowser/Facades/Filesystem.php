@@ -2,6 +2,19 @@
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * @method arrayToPath
+ * @method pathToArray
+ * @method extension
+ * @method extractName
+ * @method fileDelete
+ * @method folderCreate
+ * @method folderDelete
+ * @method getFiles
+ * @method getFolders
+ * @method getPath
+ * @method validatePath
+ */
 class Filesystem extends Facade {
 
         /**

@@ -13,13 +13,14 @@
                 "issues": "https://github.com/spescina/mediabrowser/issues"
         },
         "require": {
-                "php": ">=5.3.0",
+                "php": ">=5.4.0",
                 "illuminate/support": "4.x",
                 "spescina/pkg-support": "1.x"
         },
         "require-dev": {
                 "mockery/mockery": "0.9.*",
-                "mikey179/vfsStream": "dev-master"
+                "mikey179/vfsStream": "dev-master",
+                "satooshi/php-coveralls": "dev-master"
         },
         "autoload": {
                 "psr-0": {

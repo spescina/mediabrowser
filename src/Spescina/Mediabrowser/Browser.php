@@ -1,7 +1,7 @@
 <?php namespace Spescina\Mediabrowser;
 
 use Illuminate\Support\Facades\Session;
-use Spescina\Mediabrowser\Facades\Filesystem;
+use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
 use Spescina\Mediabrowser\Item;
 use Spescina\PkgSupport\PackageInterface;
 use Spescina\PkgSupport\ServiceInterface;
@@ -10,7 +10,25 @@ class Browser implements PackageInterface {
 
         use \Spescina\PkgSupport\PkgTrait;
 
+        /**
+         * Items in the current path
+         * 
+         * @var array 
+         */
         private $items = array();
+        
+        /**
+         * Form field name linked to the browser
+         * 
+         * @var string
+         */
+        private $field;
+        
+        /**
+         * Current browsed path
+         * 
+         * @var string 
+         */
         private $path;
 
         const TYPE_ALL = 'all';
@@ -34,29 +52,25 @@ class Browser implements PackageInterface {
          */
         public function browsePath($path, $field)
         {
-                $realPath = public_path($path);
-
-                if (!Filesystem::validatePath($realPath))
+                if ( ! FsFacade::validatePath($path))
                 {
                         return false;
                 }
 
                 $this->path = $path;
+                
+                $this->field = $field;
 
-                $folders = Filesystem::getFolders($realPath);
+                $this->folders();
 
-                $this->parseFolders($folders);
-
-                $files = Filesystem::getFiles($realPath);
-
-                $this->parseFiles($files, $field);
+                $this->files();
         }
 
         /**
          * Return the local config var in json notation
          * embeddable as a javascript config object
          *
-         * @return json
+         * @return string
          */
         public function configToJSON()
         {
@@ -72,7 +86,7 @@ class Browser implements PackageInterface {
         {
                 foreach ($items as $item)
                 {
-                        $this->items[] = new Item($item, true);
+                        $this->addItem(new Item($item, true));
                 }
         }
 
@@ -86,11 +100,11 @@ class Browser implements PackageInterface {
         {
                 foreach ($items as $item)
                 {
-                        $extension = Filesystem::extension($item);
+                        $extension = FsFacade::extension($item);
 
                         if ($this->allowed($extension, $field))
                         {
-                                $this->items[] = new Item($item);
+                                $this->addItem(new Item($item));
                         }
                 }
         }
@@ -104,7 +118,7 @@ class Browser implements PackageInterface {
         {
                 $items = array();
 
-                if (!$this->isRoot())
+                if ( ! $this->isRoot())
                 {
                         $items[] = new Item($this->parentFolder(), true, true);
                 }
@@ -158,11 +172,11 @@ class Browser implements PackageInterface {
                         return $this->conf('basepath');
                 }
 
-                $segments = Filesystem::pathToArray($this->path);
+                $segments = FsFacade::pathToArray($this->path);
 
                 array_pop($segments);
 
-                return Filesystem::arrayToPath($segments);
+                return FsFacade::arrayToPath($segments);
         }
 
         /**
@@ -175,13 +189,13 @@ class Browser implements PackageInterface {
         public function allowedExtensions($field)
         {
                 $mediabrowserType = $this->getType($field);
-
+                
                 if ($mediabrowserType === self::TYPE_ALL)
                 {
-                        return $this->getAllAllowedExtensions();
+                        return $this->allAllowedExtensions();
                 }
                 
-                $types = $this->conf("types");
+                $types = $this->conf('types');
                 
                 if ( ! isset($types[$mediabrowserType])) {
                         throw new \Exception;
@@ -196,7 +210,7 @@ class Browser implements PackageInterface {
          * @param string $field
          * @return string
          */
-        public function jsonAllowedExtensions($field)
+        public function allowedExtensionsToJSON($field)
         {
                 return json_encode($this->allowedExtensions($field));
         }
@@ -224,7 +238,7 @@ class Browser implements PackageInterface {
          * 
          * @return array
          */
-        private function getAllAllowedExtensions()
+        private function allAllowedExtensions()
         {
                 $extensions = array();
 
@@ -234,6 +248,46 @@ class Browser implements PackageInterface {
                 }
                 
                 return $extensions;
+        }
+        
+        /**
+         * Return the current path
+         * 
+         * @return string
+         */
+        public function getPath()
+        {
+                return $this->path;
+        }
+        
+        /**
+         * Add folders to the item list
+         */
+        private function folders()
+        {
+                $folders = FsFacade::getFolders($this->path);
+
+                $this->parseFolders($folders);
+        }
+        
+        /**
+         * Add files to the item list
+         */
+        private function files()
+        {
+                $files = FsFacade::getFiles($this->path);
+
+                $this->parseFiles($files, $this->field);
+        }
+        
+        /**
+         * Add one item to the item list
+         * 
+         * @param \Spescina\Mediabrowser\Item $item
+         */
+        public function addItem(Item $item)
+        {
+                $this->items[] = $item;
         }
 
 }

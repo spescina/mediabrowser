@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/spescina/mediabrowser.svg?branch=master)](https://travis-ci.org/spescina/mediabrowser?branch=master)
+[![Coverage Status](https://coveralls.io/repos/spescina/mediabrowser/badge.png?branch=master)](https://coveralls.io/r/spescina/mediabrowser?branch=master)
 # MediaBrowser  
 
 Laravel 4 packages that provide a basic user interface for browsing a server folder, for uploading files and for picking a file
