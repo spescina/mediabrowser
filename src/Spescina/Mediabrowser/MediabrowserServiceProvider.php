@@ -40,6 +40,8 @@ class MediabrowserServiceProvider extends ServiceProvider {
                 $this->registerServices();
 
                 $this->registerAlias();
+                
+                $this->registerDependencies();
         }
 
         /**
@@ -59,6 +61,8 @@ class MediabrowserServiceProvider extends ServiceProvider {
         {
                 AliasLoader::getInstance()->alias('Mediabrowser', 'Spescina\Mediabrowser\Facades\Mediabrowser');
                 AliasLoader::getInstance()->alias('Filesystem', 'Spescina\Mediabrowser\Facades\Filesystem');
+                
+                AliasLoader::getInstance()->alias('Asset', 'Dragonfire1119\Asset\Facades\Asset');
         }
 
         private function registerServices()
@@ -71,4 +75,10 @@ class MediabrowserServiceProvider extends ServiceProvider {
                         return new Filesystem();
                 });
         }
+        
+        private function registerDependencies()
+        {
+                $this->app->register('Dragonfire1119\Asset\AssetServiceProvider');
+        }
+
 }
