@@ -15,13 +15,20 @@
         "require": {
                 "php": ">=5.4.0",
                 "illuminate/support": "4.x",
-                "spescina/pkg-support": "1.x"
+                "spescina/pkg-support": "1.x",
+                "teepluss/asset": "dev-master"
         },
         "require-dev": {
                 "mockery/mockery": "0.9.*",
                 "mikey179/vfsStream": "dev-master",
                 "satooshi/php-coveralls": "dev-master"
         },
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/antoniofrignani/laravel4-asset.git"
+		}
+	],
         "autoload": {
                 "psr-0": {
                         "Spescina": "src/"
