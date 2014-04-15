@@ -13,7 +13,7 @@ class ItemTest extends PHPUnit_Framework_TestCase {
                 m::close();
         }
         
-        public function test_file_instantiate()
+        public function test_other_file_instantiate()
         {
                 Filesystem::shouldReceive('extractName')
                         ->once()
@@ -27,10 +27,13 @@ class ItemTest extends PHPUnit_Framework_TestCase {
                 
                 Mediabrowser::shouldReceive('conf')
                         ->once()
-                        ->with('imgproxy');
+                        ->with('imgproxy')
+                        ->andReturn(false);
                 
                 URL::shouldReceive('asset')
-                        ->once();
+                        ->once()
+                        ->with('packages/spescina/mediabrowser/src/img/icons/txt.png')
+                        ->andReturn('http://www.example.com/packages/spescina/mediabrowser/src/img/icons/txt.png');
                 
                 $item = new Item('foo/bar.txt');
                 
@@ -39,6 +42,7 @@ class ItemTest extends PHPUnit_Framework_TestCase {
                 $this->assertEquals('txt', $item->extension);
                 $this->assertFalse($item->folder);
                 $this->assertFalse($item->back);
+                $this->assertEquals('http://www.example.com/packages/spescina/mediabrowser/src/img/icons/txt.png', $item->thumb);
         }
         
         public function test_folder_instantiate()
@@ -54,10 +58,13 @@ class ItemTest extends PHPUnit_Framework_TestCase {
                 
                 Mediabrowser::shouldReceive('conf')
                         ->once()
-                        ->with('imgproxy');
+                        ->with('imgproxy')
+                        ->andReturn(false);
                 
                 URL::shouldReceive('asset')
-                        ->once();
+                        ->once()
+                        ->with('packages/spescina/mediabrowser/src/img/icons/folder.png')
+                        ->andReturn('http://www.example.com/packages/spescina/mediabrowser/src/img/icons/folder.png');
                 
                 $item = new Item('foo', true);
                 
@@ -65,6 +72,7 @@ class ItemTest extends PHPUnit_Framework_TestCase {
                 $this->assertEquals('foo', $item->name);
                 $this->assertTrue($item->folder);
                 $this->assertFalse($item->back);
+                $this->assertEquals('http://www.example.com/packages/spescina/mediabrowser/src/img/icons/folder.png', $item->thumb);
         }
         
         public function test_back_folder_instantiate()
@@ -80,10 +88,13 @@ class ItemTest extends PHPUnit_Framework_TestCase {
                 
                 Mediabrowser::shouldReceive('conf')
                         ->once()
-                        ->with('imgproxy');
+                        ->with('imgproxy')
+                        ->andReturn(false);
                 
                 URL::shouldReceive('asset')
-                        ->once();
+                        ->once()
+                        ->with('packages/spescina/mediabrowser/src/img/icons/back.png')
+                        ->andReturn('http://www.example.com/packages/spescina/mediabrowser/src/img/icons/back.png');
                 
                 $item = new Item('foo', true, true);
                 
@@ -91,31 +102,70 @@ class ItemTest extends PHPUnit_Framework_TestCase {
                 $this->assertEquals('..', $item->name);
                 $this->assertTrue($item->folder);
                 $this->assertTrue($item->back);
+                $this->assertEquals('http://www.example.com/packages/spescina/mediabrowser/src/img/icons/back.png', $item->thumb);
         }
         
-        public function test_fail_back_file_instantiate()
+        public function test_image_thumb_url()
         {
                 Filesystem::shouldReceive('extractName')
                         ->once()
-                        ->with('foo')
-                        ->andReturn('foo');
+                        ->with('foo/bar.jpg')
+                        ->andReturn('bar.jpg');
                 
                 Filesystem::shouldReceive('extension')
                         ->once()
-                        ->with('foo');
+                        ->with('foo/bar.jpg')
+                        ->andReturn('jpg');
                 
                 Mediabrowser::shouldReceive('conf')
                         ->once()
-                        ->with('imgproxy');
+                        ->with('imgproxy')
+                        ->andReturn(false);
                 
                 URL::shouldReceive('asset')
-                        ->once();
+                        ->once()
+                        ->with('foo/bar.jpg')
+                        ->andReturn('http://www.example.com/foo/bar.jpg');
                 
-                $item = new Item('foo', false, true);
+                $item = new Item('foo/bar.jpg');
                 
-                $this->assertEquals('foo', $item->path);
-                $this->assertEquals('foo', $item->name);
-                $this->assertFalse($item->folder);
-                $this->assertFalse($item->back);
+                $this->assertEquals('http://www.example.com/foo/bar.jpg', $item->thumb);
+        }
+        
+        public function test_image_thumb_url_proxied()
+        {
+                Filesystem::shouldReceive('extractName')
+                        ->once()
+                        ->with('foo/bar.jpg')
+                        ->andReturn('bar.jpg');
+                
+                Filesystem::shouldReceive('extension')
+                        ->once()
+                        ->with('foo/bar.jpg')
+                        ->andReturn('jpg');
+                
+                Mediabrowser::shouldReceive('conf')
+                        ->once()
+                        ->with('imgproxy')
+                        ->andReturn(true);
+                
+                Mediabrowser::shouldReceive('conf')
+                        ->once()
+                        ->with('thumbs.width')
+                        ->andReturn(100);
+                
+                Mediabrowser::shouldReceive('conf')
+                        ->once()
+                        ->with('thumbs.height')
+                        ->andReturn(100);
+                
+                URL::shouldReceive('asset')
+                        ->once()
+                        ->with('packages/spescina/imgproxy/100/100/2/70/foo/bar.jpg')
+                        ->andReturn('http://www.example.com/packages/spescina/imgproxy/100/100/2/70/foo/bar.jpg');
+                
+                $item = new Item('foo/bar.jpg');
+                
+                $this->assertEquals('http://www.example.com/packages/spescina/imgproxy/100/100/2/70/foo/bar.jpg', $item->thumb);
         }
 }
