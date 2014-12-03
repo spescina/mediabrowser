@@ -52,5 +52,13 @@ return array(
                         'pdf',
                         'ppt'
                 )
+        ),
+        
+        /**
+         * Filter hooks for the controller
+         */
+        'filters' => array(
+                'before' => array(),
+                'after' => array()
         )
 );
