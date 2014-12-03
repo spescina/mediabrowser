@@ -1,6 +1,7 @@
 <?php namespace Spescina\Mediabrowser\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
@@ -9,6 +10,24 @@ use Spescina\Mediabrowser\UploadHandler;
 use Spescina\Mediabrowser\Facades\Mediabrowser;
 
 class MediabrowserController extends Controller {
+
+        /**
+         * Controller constructor
+         */
+        public function __construct()
+        {
+                $filters = Config::get('mediabrowser::mediabrowser.filters');
+
+                foreach ($filters['before'] as $filterName => $filterOptions)
+                {
+                        $this->beforeFilter($filterName, $filterOptions);
+                }
+
+                foreach ($filters['after'] as $filterName => $filterOptions)
+                {
+                        $this->afterFilter($filterName, $filterOptions);
+                }
+        }
 
         /**
          * Load the library interface
