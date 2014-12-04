@@ -16,7 +16,7 @@
                                                 config: {{ Mediabrowser::configToJSON() }},
                                                 field: '{{ $field }}',
                                                 value: '{{ $value }}',
-                                                allowed: {{ Mediabrowser::jsonAllowedExtensions($field) }}
+                                                allowed: {{ Mediabrowser::allowedExtensionsToJSON($field) }}
                                         }
                                 }
                         };
