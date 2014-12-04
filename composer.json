@@ -14,11 +14,11 @@
         },
         "require": {
                 "php": ">=5.4.0",
+                "illuminate/support": "4.2.*",
                 "spescina/pkg-support": "1.x",
                 "dragonfire1119/asset": "dev-master"
         },
         "require-dev": {
-                "illuminate/support": "4.2.*",
                 "phpunit/phpunit": "4.3.*",
                 "mockery/mockery": "0.9.*",
                 "mikey179/vfsStream": "dev-master",
