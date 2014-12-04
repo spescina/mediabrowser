@@ -156,7 +156,24 @@ class Filesystem {
          */
         public function getPath($piece)
         {
+                $piece = $this->sanitizePath($piece);
+
                 return $this->root . '/' . $piece;
+        }
+
+        /**
+         * Sanitize the path from the root path
+         *
+         * @param string $piece
+         * @return string
+         */
+        private function sanitizePath($piece)
+        {
+                if (strpos($piece, $this->root) !== false) {
+                        return str_replace($this->root, '', $piece);
+                }
+
+                return $piece;
         }
 
 }

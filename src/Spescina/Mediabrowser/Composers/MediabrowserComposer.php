@@ -1,7 +1,7 @@
 <?php namespace Spescina\Mediabrowser\Composers;
 
 use Illuminate\Support\Facades\App;
-use Teepluss\Asset\Facades\Asset;
+use Dragonfire1119\Asset\Facades\Asset;
 
 class MediabrowserComposer {
 
