@@ -290,4 +290,38 @@ class Browser implements PackageInterface {
                 $this->items[] = $item;
         }
 
+        /**
+         * Delete a file from the server
+         *
+         * @param string $file
+         * @return boolean
+         */
+        public function fileDelete($file)
+        {
+                return FsFacade::fileDelete($file);
+        }
+
+        /**
+         * Delete a folder from the server
+         *
+         * @param string $folder
+         * @return boolean
+         */
+        public function folderDelete($folder)
+        {
+                return FsFacade::folderDelete($folder);
+        }
+
+        /**
+         * Create a folder on the server
+         *
+         * @param string $path
+         * @param string $folder
+         * @return boolean
+         */
+        public function folderCreate($path, $folder)
+        {
+                return FsFacade::folderCreate($path, $folder);
+        }
+
 }
