@@ -2,7 +2,10 @@
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Spescina\Mediabrowser\Mediabrowser;
+use Spescina\Mediabrowser\Browser;
+use Spescina\Mediabrowser\Filesystem;
+use Spescina\PkgSupport\Config;
+use Spescina\PkgSupport\Lang;
 
 class MediabrowserServiceProvider extends ServiceProvider {
 
@@ -37,6 +40,8 @@ class MediabrowserServiceProvider extends ServiceProvider {
                 $this->registerServices();
 
                 $this->registerAlias();
+                
+                $this->registerDependencies();
         }
 
         /**
@@ -47,19 +52,33 @@ class MediabrowserServiceProvider extends ServiceProvider {
         public function provides()
         {
                 return array(
-                    'mediabrowser',
+                    'mediabrowser.mediabrowser',
+                    'mediabrowser.filesystem',
                 );
         }
 
         private function registerAlias()
         {
-                AliasLoader::getInstance()->alias('MediaBrowser', 'Spescina\Mediabrowser\Facades\MediaBrowser');
+                AliasLoader::getInstance()->alias('Mediabrowser', 'Spescina\Mediabrowser\Facades\Mediabrowser');
+                AliasLoader::getInstance()->alias('Filesystem', 'Spescina\Mediabrowser\Facades\Filesystem');
+                
+                AliasLoader::getInstance()->alias('Asset', 'Dragonfire1119\Asset\Facades\Asset');
         }
 
         private function registerServices()
         {
-                $this->app['mediabrowser'] = $this->app->share(function($app) {
-                        return new Mediabrowser();
+                $this->app['mediabrowser.mediabrowser'] = $this->app->share(function($app) {
+                        return new Browser(new Config('mediabrowser'), new Lang('mediabrowser'));
+                });
+                
+                $this->app['mediabrowser.filesystem'] = $this->app->share(function($app) {
+                        return new Filesystem();
                 });
         }
+        
+        private function registerDependencies()
+        {
+                $this->app->register('Dragonfire1119\Asset\AssetServiceProvider');
+        }
+
 }

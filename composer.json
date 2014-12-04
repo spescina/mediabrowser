@@ -13,11 +13,16 @@
                 "issues": "https://github.com/spescina/mediabrowser/issues"
         },
         "require": {
-                "php": ">=5.3.0",
-                "illuminate/support": "4.x"
+                "php": ">=5.4.0",
+                "illuminate/support": "4.x",
+                "spescina/pkg-support": "1.x",
+                "dragonfire1119/asset": "dev-master"
         },
         "require-dev": {
-                "mockery/mockery": "0.9.*"
+                "phpunit/phpunit": "4.3.*",
+                "mockery/mockery": "0.9.*",
+                "mikey179/vfsStream": "dev-master",
+                "satooshi/php-coveralls": "dev-master"
         },
         "autoload": {
                 "psr-0": {

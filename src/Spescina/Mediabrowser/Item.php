@@ -1,7 +1,8 @@
 <?php namespace Spescina\Mediabrowser;
 
-use Illuminate\Support\Facades\Config;
-use Spescina\Mediabrowser\Facades\MediaBrowser;
+use Illuminate\Support\Facades\URL;
+use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
+use Spescina\Mediabrowser\Facades\Mediabrowser;
 
 class Item {
 
@@ -45,65 +46,27 @@ class Item {
          *
          * @var string
          */
-        public $icon;
+        public $thumb;
 
         /**
          * Setup of the resource
          * 
-         * @param string $fullPath
+         * @param string $path
          * @param bool $folder
          */
-        public function __construct($fullPath, $folder = false, $back = false)
+        public function __construct($path, $folder = false, $back = false)
         {
-                $this->path = $this->extractPublicPath($fullPath);
+                $this->path = $path;
 
-                $this->name = $back ? '..' : $this->extractName($fullPath);
+                $this->name = ($folder && $back) ? '..' : FsFacade::extractName($path);
 
-                $this->extension = MediaBrowser::extension($fullPath);
+                $this->extension = FsFacade::extension($path);
 
                 $this->folder = $folder;
 
-                $this->back = $back;
+                $this->back = $folder && $back;
 
                 $this->thumb = $this->thumbUrl();
-        }
-
-        /**
-         * Return only the file|folder name
-         * 
-         * @param string $path
-         * @return string
-         */
-        private function extractName($path)
-        {
-                $segments = explode('/', $path);
-
-                return array_pop($segments);
-        }
-
-        /**
-         * Remove the server private path from the full path of the resource
-         * 
-         * @param string $path
-         * @return string
-         */
-        private function extractPublicPath($path)
-        {
-                $config = MediaBrowser::config();
-
-                $rootPath = public_path($config['basepath']);
-
-                $rootNode = self::pathToArray($rootPath);
-
-                $pathNode = self::pathToArray($path);
-
-                $diff = array_diff($pathNode, $rootNode);
-
-                $relativePath = array($config['basepath']);
-
-                $final = array_merge($relativePath, $diff);
-
-                return implode('/', $final);
         }
 
         /**
@@ -156,9 +119,9 @@ class Item {
         {
                 $resourceUrl = $this->thumb();
                 
-                $url = ($this->config('imgproxy')) ? $this->imgproxyResizerUrl($resourceUrl, $width, $height) : $resourceUrl;
+                $url = (Mediabrowser::conf('imgproxy')) ? $this->imgproxyResizerUrl($resourceUrl, $width, $height) : $resourceUrl;
                 
-                return asset($url);
+                return URL::asset($url);
         }
         
         /**
@@ -171,35 +134,13 @@ class Item {
          */
         private function imgproxyResizerUrl($resourceUrl, $width, $height)
         {
-                $width = is_null($width) ? $this->config('thumbs.width') : $width;
+                $width = is_null($width) ? Mediabrowser::conf('thumbs.width') : $width;
                 
-                $height = is_null($height) ? $this->config('thumbs.height') : $height;
+                $height = is_null($height) ? Mediabrowser::conf('thumbs.height') : $height;
                 
                 $resizePrefix = "packages/spescina/imgproxy/$width/$height/2/70/";
                 
                 return $resizePrefix . $resourceUrl;
-        }
-
-        /**
-         * Convert the path in array splitted by the forward slash separator
-         * 
-         * @param string $path
-         * @return array
-         */
-        static function pathToArray($path)
-        {
-                return explode('/', $path);
-        }
-        
-        /**
-         * Get a config value from the config object
-         * 
-         * @param string $key
-         * @return string
-         */
-        private function config($key)
-        {
-                return Config::get('mediabrowser::mediabrowser.' . $key);
         }
 
 }

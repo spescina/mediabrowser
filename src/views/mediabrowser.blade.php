@@ -13,10 +13,10 @@
                                 locale: '{{ Config::get('app.locale') }}',
                                 config: {
                                         mediabrowser : {
-                                                config: {{ MediaBrowser::configToJSON() }},
+                                                config: {{ Mediabrowser::configToJSON() }},
                                                 field: '{{ $field }}',
                                                 value: '{{ $value }}',
-                                                allowed: {{ MediaBrowser::jsonAllowedExtensions($field) }}
+                                                allowed: {{ Mediabrowser::allowedExtensionsToJSON($field) }}
                                         }
                                 }
                         };
@@ -43,17 +43,17 @@
                                 <p class="pull-left">
                                         <span class="btn btn-primary btn-sm fileinput-button">
                                                 <i class="glyphicon glyphicon-plus"></i>
-                                                <span>{{ MediaBrowser::localize('upload') }}</span>
+                                                <span>{{ Mediabrowser::lang('upload') }}</span>
 
                                                 <input id="fileupload" type="file" name="files[]" multiple>
                                         </span>
-                                        <button id="btn-create-folder" type="button" class="btn btn-default btn-sm">{{ MediaBrowser::localize('create_folder') }}</button>
-                                        <input id="input-folder" class="hidden form-control input-sm" type="text" name="folder" placeholder="{{ MediaBrowser::localize('folder') }}" />
-                                        <button id="btn-confirm" type="button" class="hidden btn btn-success btn-sm">{{ MediaBrowser::localize('confirm') }}</button>
+                                        <button id="btn-create-folder" type="button" class="btn btn-default btn-sm">{{ Mediabrowser::lang('create_folder') }}</button>
+                                        <input id="input-folder" class="hidden form-control input-sm" type="text" name="folder" placeholder="{{ Mediabrowser::lang('folder') }}" />
+                                        <button id="btn-confirm" type="button" class="hidden btn btn-success btn-sm">{{ Mediabrowser::lang('confirm') }}</button>
                                 </p>
                                 <p class="pull-right">
-                                        <button id="btn-select" type="button" class="hidden btn btn-primary btn-sm">{{ MediaBrowser::localize('select') }}</button>
-                                        <button id="btn-cancel" type="button" class="btn btn-default btn-sm">{{ MediaBrowser::localize('cancel') }}</button>
+                                        <button id="btn-select" type="button" class="hidden btn btn-primary btn-sm">{{ Mediabrowser::lang('select') }}</button>
+                                        <button id="btn-cancel" type="button" class="btn btn-default btn-sm">{{ Mediabrowser::lang('cancel') }}</button>
                                 </p>
                         </div>
                 </div>

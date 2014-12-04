@@ -1,7 +1,7 @@
 <?php namespace Spescina\Mediabrowser\Composers;
 
 use Illuminate\Support\Facades\App;
-use Teepluss\Asset\Facades\Asset;
+use Dragonfire1119\Asset\Facades\Asset;
 
 class MediabrowserComposer {
 
@@ -16,11 +16,7 @@ class MediabrowserComposer {
         private function setupAssets()
         {
                 switch (App::environment()) {
-                        case 'staging':
-                        case 'production':
-                                break;
-
-                        case 'local':
+                        default:
                                 Asset::container('header')->add('bootstrap-css', 'packages/spescina/mediabrowser/src/css/vendor/bootstrap.css');
                                 Asset::container('header')->add('fontawesome-css', 'packages/spescina/mediabrowser/src/css/vendor/font-awesome.css');
                                 Asset::container('header')->add('uploader-css', 'packages/spescina/mediabrowser/src/css/vendor/jquery.fileupload.css');
