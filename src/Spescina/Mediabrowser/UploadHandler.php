@@ -288,7 +288,7 @@ class UploadHandler {
 
         protected function get_file_object($file_name) {
                 if ($this->is_valid_file_object($file_name)) {
-                        $file = new stdClass();
+                        $file = new \stdClass();
                         $file->name = $file_name;
                         $file->size = $this->get_file_size(
                                 $this->get_upload_path($file_name)
@@ -706,7 +706,7 @@ class UploadHandler {
         protected function imagick_get_image_object($file_path, $no_cache = false) {
                 if (empty($this->image_objects[$file_path]) || $no_cache) {
                         $this->imagick_destroy_image_object($file_path);
-                        $image = new Imagick();
+                        $image = new \Imagick();
                         if (!empty($this->options['imagick_resource_limits'])) {
                                 foreach ($this->options['imagick_resource_limits'] as $type => $limit) {
                                         $image->setResourceLimit($type, $limit);
@@ -730,7 +730,7 @@ class UploadHandler {
 
         protected function imagick_orient_image($image) {
                 $orientation = $image->getImageOrientation();
-                $background = new ImagickPixel('none');
+                $background = new \ImagickPixel('none');
                 switch ($orientation) {
                         case imagick::ORIENTATION_TOPRIGHT: // 2
                                 $image->flopImage(); // horizontal flop around y-axis
@@ -879,7 +879,7 @@ class UploadHandler {
         protected function get_image_size($file_path) {
                 if ($this->options['image_library']) {
                         if (extension_loaded('imagick')) {
-                                $image = new Imagick();
+                                $image = new \Imagick();
                                 try {
                                         if (@$image->pingImage($file_path)) {
                                                 $dimensions = array($image->getImageWidth(), $image->getImageHeight());
