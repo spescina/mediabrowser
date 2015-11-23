@@ -7,7 +7,7 @@
 
 Route::group(array('prefix' => 'mediabrowser'), function(){
         
-        $controller = 'Spescina\\Mediabrowser\\Controllers\\MediabrowserController';
+        $controller = 'Spescina\Mediabrowser\Controllers\MediabrowserController';
         
         Route::get('{field}/{value?}', array(
             'as' => 'mediabrowser',
