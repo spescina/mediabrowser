@@ -26,12 +26,12 @@ Publish the package config running `php artisan config:publish spescina/mediabro
 
 Include package scripts and stylesheets in your template file
 ```
-<link media="all" type="text/css" rel="stylesheet" href="http://pangea.dev/packages/spescina/mediabrowser/src/css/vendor/jquery.fancybox.css">
-<link media="all" type="text/css" rel="stylesheet" href="http://pangea.dev/packages/spescina/mediabrowser/src/css/mediabrowser-include.css">
+<link media="all" type="text/css" rel="stylesheet" href="http://localhost/packages/spescina/mediabrowser/dist/mediabrowser-include.min.css">
 ```
 ```
-<script src="http://pangea.dev/packages/spescina/mediabrowser/src/js/vendor/jquery.fancybox.js"></script>
-<script src="http://pangea.dev/packages/spescina/mediabrowser/src/js/mediabrowser-include.js"></script>
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://localhost/packages/spescina/mediabrowser/dist/mediabrowser-include.min.js"></script>
 ```
 
 Insert an input field and a button for the lightbox trigger, for example

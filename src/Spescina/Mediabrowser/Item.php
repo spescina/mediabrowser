@@ -78,7 +78,7 @@ class Item {
         {
                 $preview = array('png', 'jpg', 'gif', 'bmp');
 
-                $publicBaseUrl = 'packages/spescina/mediabrowser/src/img/icons/';
+                $publicBaseUrl = 'packages/spescina/mediabrowser/img/icons/';
 
                 if ($this->folder)
                 {

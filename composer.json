@@ -16,7 +16,6 @@
                 "php": ">=5.4.0",
                 "illuminate/support": "4.2.*",
                 "spescina/pkg-support": "~1.0",
-                "dragonfire1119/asset": "dev-master",
                 "siriusphp/upload": "^2.0"
         },
         "require-dev": {
