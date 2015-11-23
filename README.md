@@ -4,6 +4,8 @@
 
 Laravel 4.2 package that provide a basic user interface for browsing a server folder, for uploading files and for picking a file
 
+<img alt="MediaBrowser preview" src="https://cloud.githubusercontent.com/assets/1956604/11344541/51e04444-9212-11e5-80c0-c39c15edaa4d.jpg" width="400">
+
 ## Install && Usage
 
 Run `composer require spescina/mediabrowser`  
