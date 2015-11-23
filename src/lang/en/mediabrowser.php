@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'upload' => 'Upload',
     'create_folder' => 'New Folder',
     'delete_folder' => 'Delete Folder',
@@ -8,4 +8,4 @@ return array(
     'cancel' => 'Cancel',
     'folder' => 'folder',
     'confirm' => 'Create'
-);
+];
