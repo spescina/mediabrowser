@@ -27,7 +27,15 @@
         };
     </script>
 
-    @include('mediabrowser::partials.header')
+    @if (Config::get('app.debug'))
+        <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.css">
+        <link media="all" type="text/css" rel="stylesheet" href="{{ asset('packages/spescina/mediabrowser/dist/mediabrowser.css') }}">
+    @else
+        <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+        <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+        <link media="all" type="text/css" rel="stylesheet" href="{{ asset('packages/spescina/mediabrowser/dist/mediabrowser.min.css') }}">
+    @endif
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
 </head>
@@ -63,7 +71,13 @@
     </div>
 </div>
 
-@include('mediabrowser::partials.footer')
+@if (Config::get('app.debug'))
+    <script src="{{ asset('packages/spescina/mediabrowser/dist/mediabrowser.js') }}"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.js"></script>
+@else
+    <script src="{{ asset('packages/spescina/mediabrowser/dist/mediabrowser.min.js') }}"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+@endif
 
 </body>
 </html>
