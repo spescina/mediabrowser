@@ -93,14 +93,13 @@ gulp.task('styles', ['sass'], function () {
 });
 
 // Copy vendor assets
-gulp.task('copy-vendor-assets', function(){
+gulp.task('copy-vendor-assets', function () {
     return gulp.src([
         'public/src/vendor/fancybox/source/*.gif',
         'public/src/vendor/fancybox/source/*.png'
     ])
         .pipe(gulp.dest('public/dist'));
 });
-
 
 
 // DEFAULT
