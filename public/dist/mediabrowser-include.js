@@ -2024,7 +2024,7 @@
 
         $(function() {
 
-                $('.lightbox').fancybox({
+                $('.mediabrowser-js').fancybox({
                         maxHeight: 800,
                         maxWidth: 600,
                         minHeight: 480,
