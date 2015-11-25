@@ -312,12 +312,15 @@
                         {
                                 $(config.selectors.container).on('click', config.selectors.delete, function(e)
                                 {
+                                        var userFeedback = confirm(ZZ.config.mediabrowser.labels['confirm_delete']);
+
+                                        if (userFeedback === false) return;
+
                                         var $el = $(this).closest(config.selectors.item);
 
                                         var target = $el.data(config.selectors.pathAttribute);
 
-                                        var callback = function()
-                                        {
+                                        var callback = function() {
                                                 browse(currentPath);
                                         };
 

@@ -16,7 +16,10 @@
                                                 config: {{ Mediabrowser::configToJSON() }},
                                                 field: '{{ $field }}',
                                                 value: '{{ $value }}',
-                                                allowed: {{ Mediabrowser::allowedExtensionsToJSON($field) }}
+                                                allowed: {{ Mediabrowser::allowedExtensionsToJSON($field) }},
+                                                labels: {
+                                                        'confirm_delete': '{{ Mediabrowser::lang('confirm_delete') }}'
+                                                }
                                         }
                                 }
                         };
