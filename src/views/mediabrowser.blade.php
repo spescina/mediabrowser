@@ -28,10 +28,6 @@
                 <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         </head>
         <body>
-                <!--[if lte IE 8]>
-                    <p class="browsehappy">Stai utilizzando un browser <strong>vecchio</strong>. Ti consigliamo di effettuarne <a href="http://browsehappy.com/">l'aggiornamento</a> per migliorare la tua esperienza di navigazione.</p>
-                <![endif]-->
-
                 <div class="container">
                         <div class="row" id="mediabrowser"></div>
                 </div>
