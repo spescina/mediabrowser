@@ -2,16 +2,9 @@
 
 use Illuminate\Support\Facades\Session;
 use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
-use Spescina\Mediabrowser\Item;
-use Spescina\PkgSupport\PackageInterface;
-use Spescina\PkgSupport\PkgTrait;
-use Spescina\PkgSupport\ServiceInterface;
 
-class Browser implements PackageInterface
+class Browser
 {
-
-    use PkgTrait;
-
     /**
      * Items in the current path
      *
@@ -38,12 +31,6 @@ class Browser implements PackageInterface
     const TYPE_DOC = 'doc';
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
-
-    public function __construct(ServiceInterface $config, ServiceInterface $lang)
-    {
-        $this->config = $config;
-        $this->lang = $lang;
-    }
 
     /**
      * Return objects in the given path
@@ -75,7 +62,7 @@ class Browser implements PackageInterface
      */
     public function configToJSON()
     {
-        return json_encode($this->conf());
+        return json_encode(config('mediabrowser'));
     }
 
     /**
@@ -148,7 +135,7 @@ class Browser implements PackageInterface
      */
     private function isRoot()
     {
-        if ($this->path === $this->conf('basepath')) {
+        if ($this->path === config('mediabrowser.basepath')) {
             return true;
         }
 
@@ -163,7 +150,7 @@ class Browser implements PackageInterface
     private function parentFolder()
     {
         if ($this->isRoot()) {
-            return $this->conf('basepath');
+            return config('mediabrowser.basepath');
         }
 
         $segments = FsFacade::pathToArray($this->path);
@@ -188,7 +175,7 @@ class Browser implements PackageInterface
             return $this->allAllowedExtensions();
         }
 
-        $types = $this->conf('types');
+        $types = config('mediabrowser.types');
 
         if (!isset($types[$mediabrowserType])) {
             throw new \Exception;
@@ -220,7 +207,7 @@ class Browser implements PackageInterface
         $fields = Session::get('formFields');
 
         if (!isset($fields[$field]['allowed'])) {
-            throw new \Exception;
+            throw new \Exception('No media fields defined.');
         }
 
         return $fields[$field]['allowed'];
@@ -235,7 +222,7 @@ class Browser implements PackageInterface
     {
         $extensions = array();
 
-        foreach ($this->conf('types') as $ext) {
+        foreach (config('mediabrowser.types') as $ext) {
             $extensions = array_merge($extensions, $ext);
         }
 
@@ -314,6 +301,16 @@ class Browser implements PackageInterface
     public function folderCreate($path, $folder)
     {
         return FsFacade::folderCreate($path, $folder);
+    }
+
+    public function lang($key)
+    {
+        return trans("mediabrowser::mediabrowser.$key");
+    }
+
+    public function conf($key = null)
+    {
+        return $key ? config("mediabrowser.$key") :  config('mediabrowser');
     }
 
 }

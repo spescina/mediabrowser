@@ -1,8 +1,6 @@
 <?php namespace Spescina\Mediabrowser;
 
-use Illuminate\Support\Facades\URL;
 use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
-use Spescina\Mediabrowser\Facades\Mediabrowser;
 
 class Item
 {
@@ -103,36 +101,13 @@ class Item
     /**
      * Return the item url
      *
-     * @param int $width
-     * @param int $height
      * @return string
      */
-    public function thumbUrl($width = null, $height = null)
+    public function thumbUrl()
     {
         $resourceUrl = $this->thumb();
 
-        $url = (Mediabrowser::conf('imgproxy')) ? $this->imgproxyResizerUrl($resourceUrl, $width, $height) : $resourceUrl;
-
-        return URL::asset($url);
-    }
-
-    /**
-     * Return the prefixed url including the resizing prefix of the imgproxy package
-     *
-     * @param string $resourceUrl
-     * @param int $width
-     * @param int $height
-     * @return string
-     */
-    private function imgproxyResizerUrl($resourceUrl, $width, $height)
-    {
-        $width = is_null($width) ? Mediabrowser::conf('thumbs.width') : $width;
-
-        $height = is_null($height) ? Mediabrowser::conf('thumbs.height') : $height;
-
-        $resizePrefix = "packages/spescina/imgproxy/$width/$height/2/70/";
-
-        return $resizePrefix . $resourceUrl;
+        return asset($resourceUrl);
     }
 
 }
