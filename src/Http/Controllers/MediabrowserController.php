@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 use Sirius\Upload\Handler as UploadHandler;
 use Spescina\Mediabrowser\Facades\Mediabrowser;
 
@@ -16,7 +17,7 @@ class MediabrowserController extends Controller
      */
     public function index($field, $value = null)
     {
-        return view()->make('mediabrowser::mediabrowser')
+        return View::make('mediabrowser::mediabrowser')
             ->with('field', $field)
             ->with('value', $value);
     }
@@ -37,7 +38,7 @@ class MediabrowserController extends Controller
 
         $data = Mediabrowser::getItems();
 
-        return response()->json($data);
+        return Response::json($data);
     }
 
     /**
@@ -53,7 +54,7 @@ class MediabrowserController extends Controller
 
         $exec = Mediabrowser::folderCreate($path, $folder);
 
-        return response()->json(array($exec));
+        return Response::json(array($exec));
     }
 
     /**
@@ -68,7 +69,7 @@ class MediabrowserController extends Controller
 
         $exec = Mediabrowser::folderDelete($folder);
 
-        return response()->json(array($exec));
+        return Response::json(array($exec));
     }
 
     /**
@@ -95,10 +96,10 @@ class MediabrowserController extends Controller
 
         if ($result->isValid()) {
             $result->confirm();
-            return response()->json([]);
+            return Response::json([]);
         } else {
             $result->clear();
-            return response()->json($result->getMessages());
+            return Response::json($result->getMessages());
         }
     }
 
@@ -114,7 +115,7 @@ class MediabrowserController extends Controller
 
         $exec = Mediabrowser::fileDelete($file);
 
-        return response()->json(array($exec));
+        return Response::json(array($exec));
     }
 
 }

@@ -1,5 +1,7 @@
 <?php namespace Spescina\Mediabrowser;
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
 use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
 
@@ -62,7 +64,7 @@ class Browser
      */
     public function configToJSON()
     {
-        return json_encode(config('mediabrowser'));
+        return json_encode($this->conf());
     }
 
     /**
@@ -135,7 +137,7 @@ class Browser
      */
     private function isRoot()
     {
-        if ($this->path === config('mediabrowser.basepath')) {
+        if ($this->path === $this->conf('basepath')) {
             return true;
         }
 
@@ -150,7 +152,7 @@ class Browser
     private function parentFolder()
     {
         if ($this->isRoot()) {
-            return config('mediabrowser.basepath');
+            return $this->conf('basepath');
         }
 
         $segments = FsFacade::pathToArray($this->path);
@@ -175,7 +177,7 @@ class Browser
             return $this->allAllowedExtensions();
         }
 
-        $types = config('mediabrowser.types');
+        $types = $this->conf('types');
 
         if (!isset($types[$mediabrowserType])) {
             throw new \Exception;
@@ -222,7 +224,7 @@ class Browser
     {
         $extensions = array();
 
-        foreach (config('mediabrowser.types') as $ext) {
+        foreach ($this->conf('types') as $ext) {
             $extensions = array_merge($extensions, $ext);
         }
 
@@ -305,12 +307,12 @@ class Browser
 
     public function lang($key)
     {
-        return trans("mediabrowser::mediabrowser.$key");
+        return Lang::trans("mediabrowser::mediabrowser.$key");
     }
 
     public function conf($key = null)
     {
-        return $key ? config("mediabrowser.$key") :  config('mediabrowser');
+        return $key ? Config::get("mediabrowser.$key") : Config::get('mediabrowser');
     }
 
 }

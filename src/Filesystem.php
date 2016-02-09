@@ -1,5 +1,6 @@
 <?php namespace Spescina\Mediabrowser;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Spescina\Mediabrowser\Exceptions\DirectoryDoesNotExists;
 use Spescina\Mediabrowser\Exceptions\FileDoesNotExists;
@@ -11,7 +12,7 @@ class Filesystem
 
     public function __construct($root = null)
     {
-        $this->root = $root ?: app()->make('path.public');
+        $this->root = $root ?: App::make('path.public');
     }
 
     /**
