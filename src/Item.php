@@ -1,5 +1,6 @@
 <?php namespace Spescina\Mediabrowser;
 
+use Illuminate\Support\Facades\URL;
 use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
 
 class Item
@@ -107,7 +108,7 @@ class Item
     {
         $resourceUrl = $this->thumb();
 
-        return asset($resourceUrl);
+        return URL::asset($resourceUrl);
     }
 
 }
