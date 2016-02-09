@@ -26,11 +26,6 @@ class ItemTest extends PHPUnit_Framework_TestCase
             ->with('foo/bar.txt')
             ->andReturn('txt');
 
-        Mediabrowser::shouldReceive('conf')
-            ->once()
-            ->with('imgproxy')
-            ->andReturn(false);
-
         URL::shouldReceive('asset')
             ->once()
             ->with('packages/spescina/mediabrowser/img/icons/txt.png')
@@ -57,11 +52,6 @@ class ItemTest extends PHPUnit_Framework_TestCase
             ->once()
             ->with('foo');
 
-        Mediabrowser::shouldReceive('conf')
-            ->once()
-            ->with('imgproxy')
-            ->andReturn(false);
-
         URL::shouldReceive('asset')
             ->once()
             ->with('packages/spescina/mediabrowser/img/icons/folder.png')
@@ -86,11 +76,6 @@ class ItemTest extends PHPUnit_Framework_TestCase
         Filesystem::shouldReceive('extension')
             ->once()
             ->with('foo');
-
-        Mediabrowser::shouldReceive('conf')
-            ->once()
-            ->with('imgproxy')
-            ->andReturn(false);
 
         URL::shouldReceive('asset')
             ->once()
@@ -117,11 +102,6 @@ class ItemTest extends PHPUnit_Framework_TestCase
             ->once()
             ->with('foo/bar.jpg')
             ->andReturn('jpg');
-
-        Mediabrowser::shouldReceive('conf')
-            ->once()
-            ->with('imgproxy')
-            ->andReturn(false);
 
         URL::shouldReceive('asset')
             ->once()
