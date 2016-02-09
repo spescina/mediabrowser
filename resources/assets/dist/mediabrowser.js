@@ -15727,7 +15727,10 @@ $(function() {
             var pick = function () {
                 var selectedPath = selected().data(config.selectors.pathAttribute);
 
-                parent.$('input[name="' + config.field + '"]').val(selectedPath);
+                var $input = parent.$('input[name="' + config.field + '"]');
+
+                $input.val(selectedPath);
+                $input.trigger('input');
 
                 close();
             };
