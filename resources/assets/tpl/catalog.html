@@ -1,7 +1,7 @@
 {{#each resources}}
 <div class="col-xs-3" >
         <div class="thumbnail resource{{#if back}} back{{/if}}" data-folder="{{folder}}" data-path="{{path}}">
-                <img src="{{thumb}}" alt="{{name}}">
+                <div class="image" style="background: url('{{thumb}}')"></div>
                 <div class="caption">
                         <p>{{name}}</p>
                 </div>
