@@ -20,9 +20,8 @@
     "issues": "https://github.com/spescina/mediabrowser/issues"
   },
   "require": {
-    "php": ">=5.4.0",
-    "illuminate/support": "4.2.*",
-    "spescina/pkg-support": "~1.0",
+    "php": ">=5.5.9",
+    "illuminate/support": "5.2.*",
     "siriusphp/upload": "^2.0"
   },
   "require-dev": {
@@ -32,8 +31,8 @@
     "satooshi/php-coveralls": "dev-master"
   },
   "autoload": {
-    "psr-0": {
-      "Spescina": "src/"
+    "psr-4": {
+      "Spescina\\Mediabrowser\\": "src/"
     }
   },
   "minimum-stability": "stable"

@@ -1,0 +1,13 @@
+{{#each resources}}
+<div class="col-xs-3" >
+        <div class="thumbnail resource{{#if back}} back{{/if}}" data-folder="{{folder}}" data-path="{{path}}">
+                <div class="image" style="background: url('{{thumb}}')"></div>
+                <div class="caption">
+                        <p>{{name}}</p>
+                </div>
+                <div class="actions">
+                        <i class="act-delete fa fa-trash-o"></i>
+                </div>
+        </div>
+</div>
+{{/each}} 

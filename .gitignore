@@ -1,4 +1,4 @@
 composer.lock
 /vendor
 /node_modules
-/public/src/vendor
+/resources/assets/src/vendor

@@ -2,14 +2,8 @@
 
 use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\URL;
 use Mockery as m;
 use Spescina\Mediabrowser\Browser;
-use Spescina\Mediabrowser\Facades\Filesystem as FsFacade;
-use Spescina\Mediabrowser\Facades\Mediabrowser;
-use Spescina\Mediabrowser\Item;
-use Spescina\PkgSupport\Config;
-use Spescina\PkgSupport\Lang;
 
 class BrowserTest extends PHPUnit_Framework_TestCase
 {
@@ -25,7 +19,7 @@ class BrowserTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->browser = new Browser(new Config('mediabrowser'), new Lang('mediabrowser'));
+        $this->browser = new Browser();
     }
 
     public function tearDown()
