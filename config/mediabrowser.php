@@ -39,5 +39,10 @@ return [
             'pdf',
             'ppt'
         ]
-    ]
+    ],
+    
+    'prefix' => 'mediabrowser',
+    
+    'middleware' => [],
+    
 ];
