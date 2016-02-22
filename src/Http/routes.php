@@ -5,7 +5,11 @@
   |--------------------------------------------------------------------------
  */
 
-Route::group(['prefix' => 'mediabrowser', 'namespace' => 'Spescina\Mediabrowser\Http\Controllers'], function(){
+Route::group([
+  
+  'prefix' => config("mediabrowser.prefix"),
+  'middleware' => config("mediabrowser.middleware"),
+  'namespace' => 'Spescina\Mediabrowser\Http\Controllers'], function(){
         
         Route::get('{field}/{value?}', array(
             'as' => 'mediabrowser',
