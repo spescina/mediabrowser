@@ -1,39 +1,37 @@
 {
-  "name": "spescina/mediabrowser",
-  "description": "Laravel packages that provide a basic user interface for browsing a server folder, for uploading files and for picking a file",
-  "keywords": [
-    "laravel",
-    "media",
-    "images",
-    "file manager",
-    "file browser",
-    "upload"
-  ],
-  "authors": [
-    {
-      "name": "Simone Pescina",
-      "email": "s.pescina@gmail.com"
-    }
-  ],
-  "license": "MIT",
-  "support": {
-    "issues": "https://github.com/spescina/mediabrowser/issues"
-  },
-  "require": {
-    "php": ">=5.5.9",
-    "illuminate/support": "5.2.*",
-    "siriusphp/upload": "^2.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.3.*",
-    "mockery/mockery": "0.9.*",
-    "mikey179/vfsStream": "dev-master",
-    "satooshi/php-coveralls": "dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-      "Spescina\\Mediabrowser\\": "src/"
-    }
-  },
-  "minimum-stability": "stable"
+    "name": "spescina/mediabrowser",
+    "description": "Laravel packages that provide a basic user interface for browsing a server folder, for uploading files and for picking a file",
+    "keywords": [
+        "laravel",
+        "media",
+        "images",
+        "file manager",
+        "file browser",
+        "upload"
+    ],
+    "authors": [{
+        "name": "Simone Pescina",
+        "email": "s.pescina@gmail.com"
+    }],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/spescina/mediabrowser/issues"
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "5.4.*",
+        "siriusphp/upload": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*",
+        "mockery/mockery": "0.9.*",
+        "mikey179/vfsStream": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spescina\\Mediabrowser\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
 }
