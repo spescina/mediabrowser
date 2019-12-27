@@ -20,7 +20,7 @@
     "issues": "https://github.com/spescina/mediabrowser/issues"
   },
   "require": {
-    "php": ">=5.5.9",
+    "php": ">=7.2.0",
     "illuminate/support": "5.2.*",
     "siriusphp/upload": "^2.0"
   },
@@ -28,7 +28,7 @@
     "phpunit/phpunit": "4.3.*",
     "mockery/mockery": "0.9.*",
     "mikey179/vfsstream": "dev-master",
-    "satooshi/php-coveralls": "dev-master"
+    "php-coveralls/php-coveralls": "v2.2.*"
   },
   "autoload": {
     "psr-4": {
